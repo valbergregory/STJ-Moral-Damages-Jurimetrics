@@ -1,0 +1,9 @@
+{
+  "source": "IBGE/SIDRA tabela 1737, variável 2266 (IPCA número-índice, dez/1993 = 100)",
+  "api": "https://apisidra.ibge.gov.br/values/t/1737/n1/all/v/2266/p/all/d/v2266%2013",
+  "fetched_at": "2026-09-05 19:22:17.052482",
+  "n_rows": 560,
+  "first": "197912",
+  "last": "202607",
+  "sha256": "f5f1328ed977723bff1be5c0518dea14407d93afa7d8b727fca34470ad69c9b6"
+}

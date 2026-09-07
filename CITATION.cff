@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this code or data pipeline, please cite it as below."
+title: "Pricing Non-Pecuniary Harm: research compendium (STJ moral-damages jurimetrics)"
+type: software
+authors:
+  - family-names: Gregory
+    given-names: Valber
+    email: valber.gregory@gmail.com
+repository-code: "https://github.com/valbergregory/STJ-Moral-Damages-Jurimetrics"
+license: MIT
+version: 0.1.0
+date-released: 2026-09-08
+keywords:
+  - jurimetrics
+  - law and economics
+  - moral damages
+  - Superior Tribunal de Justiça
+  - R
+  - reproducible research
+abstract: >
+  Reproducible R + DuckDB pipeline that audits, ingests and analyses moral-damages (dano moral)
+  awards in decisions of Brazil's Superior Court of Justice (STJ) published in the official gazette,
+  using only official open data (STJ Open Data Portal, IBGE/SIDRA, CNJ). Work in progress.

@@ -1,0 +1,44 @@
+# dados brutos e intermediários (grandes; reproduzíveis pelos scripts)
+data/raw/stj_integras/**/*.zip
+data/raw/stj_integras/**/*.json
+data/raw/stj_tramitando/
+data/raw/stj_espelhos/*.json
+data/interim/
+data/processed/
+data/*.duckdb
+data/*.duckdb.wal
+_targets/
+logs/*.html
+# manter: checksums, dicionários, inventários pequenos
+!data/raw/stj_integras/sample/CHECKSUMS.sha256
+!data/raw/ipca/
+!data/raw/stj_precedentes/
+!data/raw/cnj_assuntos.csv
+# R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+renv/library/
+renv/staging/
+renv/local/
+# Quarto
+paper/_book/
+paper/*_files/
+paper/*.html
+# contêm trechos de decisões com nomes de partes/juízes: não versionar (diretriz 05/09)
+logs/pilot_*.txt
+logs/pilot_*.out
+logs/stj_consulta_test.html
+data/annotations/*.csv
+# LaTeX build
+article/*.aux
+article/*.log
+article/*.out
+article/*.bbl
+article/*.blg
+article/*.pdf
+article/*.synctex.gz
+# metadados completos e snapshots (grandes; reproduzíveis)
+data/raw/stj_integras/metadata/*.json
+logs/download_metadata_run.out
