@@ -1,0 +1,22 @@
+﻿Campo;Nome extenso;Descrição
+sequencialPrecedente;Número sequencial do precedente qualificado;Número sequencial atribuído pelo banco de dados quando inserido novo precedente. É utilizado para relacionar os temas com os processos disponibilizados no outro arquivo. 
+tipoPrecedente;Tipo de precedente qualificado;Classificação dada ao precedente qualificado, conforme sua natureza jurídica: Controvérsia, Tema Repetitivo, Incidente de Assunção de Competência - IAC, Suspensão em Incidente de resolução de Demandas Repetitivas - SIRDR ou Pedido de Uniformização de Interpretação de Lei - PUIL.
+numeroPrecedente;Número do precedente qualificado;Número sequencial crescente dado ao precedente qualificado do STJ quando da sua criação conforme sua natureza jurídica: Controvérsia, Tema Repetitivo, Incidente de Assunção de Competência - IAC, Suspensão em Incidente de resolução de Demandas Repetitivas - SIRDR ou Pedido de Uniformização de Interpretação de Lei - PUIL.
+dataPrimeiraAfetacao;Data da primeira afetação;Data de quando ocorreu a decisão da primeira afetação, quando há mais de uma data de afetação.
+dataJulgamento;Data de julgamento;Data em que ocorreu o julgamento do tema.
+situacao;Situação;Situação atual do precedente qualificado.
+informacoesComplementares;Informações complementares;Informações complementares relativas ao precedente qualificado ou ao julgamento dos processos que compõem o grupo que são relevantes para a comunidade jurídica (tais como determinação e abrangência da suspensão dos processos de mesmo objeto, existência de Súmula sobre o mesmo assunto ou correlato, exceções e conceitos concernetes às teses).
+questaoSubmetidaAJulgamento;Questão submetida a julgamento;Questão jurídica constante dos processos/recursos que está sendo submetida a julgamento no orgão colegiado competente.
+teseFirmada;Tese firmada;Tese jurídica firmada pelo órgão colegiado competente ao final do julgamento do tema/recurso.
+anotacoesNUGEPNAC;Anotações NUGEPNAC;Anotações relevantes sobre o precedente qualificado ou sobre o julgamento dos temas/recursos para melhor compreensão do contexto jurídico processual.
+delimitacaoJulgado;Delimitação do julgado;Informações pertinentes à delimitação da questão submetida a julgamento ou do que foi julgado, para esclarecer eventuais limites da matéria discutida e decidida no precedente qualificiado.
+entendimentoAnterior;Entendimento anterior;Entendimento firmado em precedente qualificado anterior a ser revisto ou já revisado e alterado.
+referenciaLegislativa;Referência legislativa;Conjunto de normas jurídicas - leis, decretos, portarias, etc - que foram objeto de discussão e serviram de fundamento no julgamento dos processos/recursos que formaram o precedente qualificado.
+referenciaSumular;Referência sumular;Súmulas utilizadas como fundamento no julgamento dos processos/recursos que formaram o precedente qualificado.
+sumulaOriginada;Súmula originada do tema;Súmulas que foram originadas/criadas em decorrência da formação do precedente qualificado.
+audienciaPublica;Audiência pública;Informação de que antes do julgamento do tema/recurso foi realizada uma audiência pública para ouvir pessoas e representantes de entidades com experiência e conhecimento na matéria debatida para subsidiar o entendimento/convencimento do relator e a fixação da tese pelo órgão colegiado.
+dataAudienciaPublica;Data da audiência pública;Data em que foi realizada a audiência pública naquele tema/recurso.
+orgaoJulgador;Órgão julgador;Órgão do STJ que foi determinado regimentalmente competente para julgar a matéria submetida a julgamento.
+Assuntos;Assuntos;Assuntos relacionados á questão jurídica discutida nos recursos de acordo com a Tabela Processual Unificada do CNJ.
+numeroRepercussaoGeralSTF;Número de Repercussão geral;Número do tema de Repercussão Geral do STF correlato.
+descricaoRepercussaoGeral;Descrição sobre a repercussão Geral;Descrição dos temas e recursos que tiveram repercussão geral reconhecida e se relacionam com o precedente qualificado do STJ.

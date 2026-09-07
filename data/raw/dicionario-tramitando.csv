@@ -1,0 +1,30 @@
+﻿Campo;Descrição;Valores possíveis
+numeroUnico;Número único do processo no padrão CNJ;
+Data;Data de extração da lista. Para figurar na lista, o processo deve se encontrar tramitando ao final desta data.;
+numeroRegistro;Número de registro do processo no STJ;
+siglaClasse;Sigla da Classe Processual;
+numeroNaClasse;Número sequencial do processo na Classe. A sigla seguida desse número compõe a forma tradicional de referência do processo no Tribunal. Ex. Aresp 100000. ;
+codigoClasseCNJ;Código da Classe nas Tabelas Processuais Unificadas do CNJ;
+processo;Identificador do processo formado pela junção da sigla da classe com número sequencial do processo na classe. ;
+nomeMinistroRelator;Ministro para o qual foi distribuída relatoria do processo.;
+dataRecebimento;Data em que o processo foi recebido no STJ, seja oriundo de outro tribunal ou diretamente no protocolo.;
+codigoOrgaoJulgador;Código do Órgão Julgador. Pode ser nulo em casos como o registro do processo à Presidência. ;"{ ""CE"": ""CORTE ESPECIAL"", ""S1"": ""PRIMEIRA SEÇÃO"", ""S2"": ""SEGUNDA SEÇÃO"", ""S3"": ""TERCEIRA SEÇÃO"", ""T1"": ""PRIMEIRA TURMA"", ""T2"": ""SEGUNDA TURMA"", ""T3"": ""TERCEIRA TURMA"", ""T4"": ""QUARTA TURMA"", ""T5"": ""QUINTA TURMA"", ""T6"": ""SEXTA TURMA"" }"
+codigoAssuntoCNJ;Código do assunto principal do processo nas Tabelas Processuais Unificadas do CNJ;
+assuntoCompleto;Descrição do assunto principal do processo formada a partir da concatenação dos assuntos pais e filhos de acordo com a árvore da TPU do CNJ separados pelo sinal de dois pontos. ;
+listaAssuntos;Lista dos códigos e descrições de todos os assuntos do processo. ;
+segredoJustica;Informa se o processo está em segredo de justiça. ;"{""Sim"", ""Não""}"
+pedidoDeLiminar;Informa se o processo chegou ao STJ com pedido de liminar. ;"{""Sim"", ""Não""}"
+sobrestado;Informa se o processo se encontra sobrestado na data e o motivo. ;"{ ST: ""Não foi possível identificar o motivo"", ""N"": ""Não está sobrestado"", T: ""Sobrestado em razão de Tema de Repetitivo"", RG: ""Sobrestado em razão de Tema de Repercussão Geral"", C: ""Sobrestado em razão de Controvérsia proposta"", I:""Sobrestado em razão de IAC"" }"
+localProcesso;Local interno em que o processo se encontra. ;
+origem;Tribunal de origem do processo. ;
+UF;Unidade federativa de origem do processo.;
+dataUltimaDecisao;Data da última decisão terminativa proferida no processo se houver. ;
+dataPublicacao;Data de publicação da última decisão terminativa proferida no processo se houver. ;
+partes;Conjunto dos dados das partes do processo.;
+descTipoParte;Tipo da parte;"[ ""AUTORIDADE CENTRAL"", ""ACUSADO"", ""AGRAVO RETIDO"", ""AGRAVO REGIMENTAL"", ""AGRAVADO"", ""AGRAVANTE"", ""APELADO"", ""APELANTE"", ""ASSISTIDO(A) POR"", ""ASSISTENTE DE ACUSAÇÃO"", ""ASSISTENTE DO MINISTÉRIO PÚBLICO"", ""ASSISTENTE LITISCONSORCIAL"", ""ASSISTIDO(A) PELO"", ""ASSISTENTE"", ""AUTOR"", ""CURADOR ESPECIAL"", ""COMUNICADO"", ""COMUNICANTE"", ""CORRÉU"", ""CURADOR"", ""DEFENSOR DATIVO"", ""DENOMINAÇÃO ANTERIOR"", ""DEPRECANTE"", ""EMBARGADO"", ""EMBARGANTE"", ""EXCEPTO"", ""EXCIPIENTE"", ""EXECUTADO"", ""EXEQUENTE"", ""FORMADORA DO"", ""HERDEIROS DE"", ""IMPETRADO"", ""IMPETRANTE"", ""IMPUGNADO"", ""IMPUGNANTE"", ""INDICIADO"", ""INTERESSADO"", ""INTERPELADO"", ""INTERPELANTE"", ""INVESTIGADO"", ""JUSTIÇA ROGANTE"", ""LITISCONSORTE"", ""LITISCONSORTE PASSIVO"", ""LITISCONSORTE ATIVO"", ""MENOR IMPÚBERE"", ""MANTENEDORA"", ""NOTICIADO"", ""NOTICIANTE"", ""OU"", ""OUTRO NOME"", ""PACIENTE"", ""PARTE"", ""PARTE AUTORA"", ""PARTE RÉ"", ""PARTES"", ""POR INCORPORAÇÃO"", ""QUERELADO"", ""QUERELANTE"", ""RECURSO ADESIVO"", ""RECLAMADO"", ""RECLAMANTE"", ""RECORRENTE"", ""RECORRIDO"", ""REMETENTE EX OFFICIO"", ""REMETENTE"", ""REPRESENTADO"", ""REPRESENTADO POR"", ""REPRESENTANDO"", ""REPRESENTANTE"", ""REPRESENTANTE DA"", ""REQUISITADO"", ""REQUISITANTE"", ""REQUERENTE"", ""REQUERIDO"", ""RÉU"", ""SINDICADO"", ""SÍNDICO"", ""SUCESSOR DE"", ""SUCESSORES DE"", ""SUSCITADO"", ""SUSCITANTE"", ""TRIBUNAL DE ORIGEM"", ""TERCEIRO INTERESSADO"", ""TERCEIRO PREJUDICADO"", ""UNIDADE DA FEDERAÇÃO"", ""VITIMA/LESADO"" ]"
+nomeParte;Nome da parte;
+numeroCNPJ;Número do CNPJ da parte quando for Pessoa Jurídica e estiver cadastrado no processo. ;
+advogados;Conjunto dos dados dos advogados vinculados a parte no processo.;
+codigoOAB;Código de Registro do Advogado na Ordem dos Advogados do Brasil;
+nomeAdvogado;Nome do Advogado;
+dataUltimaDistribuicao;Data em que ocorreu a última distribuição do processo. ;

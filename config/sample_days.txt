@@ -1,0 +1,9 @@
+# Dias-amostra do piloto (chave AAAAMMDD do conjunto "Íntegras de Decisões Terminativas e Acórdãos do DJ").
+# Escolhidos para cobrir a carga inicial (jan/2021), um dia típico de cada ano e a deriva de esquema dos metadados.
+20210104
+20210203
+20210204
+20210205
+20230515
+20250312
+20260826
