@@ -13,8 +13,11 @@
 | recurso | `recurso` | chr | AgInt/AgRg/EDcl/...; NULL = processo principal |
 | teor | `teor` | chr | "Não Conhecendo", "Negando", "Concedendo", "Outros", "Admitindo Embargo" |
 | assuntos_raw | `assuntos` | chr | texto original |
-| assuntos_formato | derivado | chr | caminho_pontuado (2021, 2025+) / leaf_lista (2023) |
-| assuntos_leaf | derivado | chr | folhas únicas separadas por ";" (sem zeros à esquerda) |
+| assuntos_formato | derivado | chr | caminho_pontuado (2021, 2026) / leaf_lista (2022–2025; separador `;` até 2023 e `, ` em 2024–2025) |
+| assuntos_leaf | derivado | chr | folhas únicas separadas por ";" (inteiros, sem zeros à esquerda); NA se vazio |
+| dm_code, negativacao, plano_saude, protesto_indevido, acidente_transito, consumidor_rf, civil_rc, adm_rc | derivado (`R/tpu_codes.R`) | bool | pertencimento a uma família TPU (código raiz ou qualquer descendente) |
+| classe_civel | derivado | bool | classe ∈ {REsp, AREsp, EREsp, EAREsp} |
+| n_codigos | derivado | int | número de códigos-folha distintos no documento |
 
 ## `stg.money_candidates` (saída de `extract_money()`)
 | Campo | Valores | Significado |
