@@ -38,11 +38,15 @@ read_metadata_day <- function(path) {
     assuntos_formato = if_else(stri_detect_fixed(coalesce(assuntos_raw, ""), "."), "caminho_pontuado", "leaf_lista"),
     assuntos_leaf = map_chr(assuntos_raw, function(a) {
       if (is.na(a) || a == "") return(NA_character_)
+      # formatos observados: 2021/2026 caminhos "00287.03603.03607.03608., 01209.07942." ; 2022–2023 folhas "10318;10318" ;
+      # 2024–2025 folhas "6100, 9148, 6120" (vírgula + espaço)
       if (stri_detect_fixed(a, ".")) {
-        paths <- stri_trim_both(stri_split_fixed(a, ",")[[1]])
+        paths <- stri_trim_both(stri_split_fixed(a, ",")[[1]]); paths <- paths[paths != ""]
         leaf <- map_chr(paths, ~ { cs <- stri_split_fixed(stri_replace_last_fixed(.x, ".", ""), ".")[[1]]; cs[length(cs)] })
-      } else leaf <- stri_split_fixed(a, ";")[[1]]
-      paste(unique(as.character(as.integer(leaf))), collapse = ";")
+      } else leaf <- stri_trim_both(stri_split_regex(a, "[;,]")[[1]])
+      leaf <- suppressWarnings(as.integer(leaf)); leaf <- leaf[!is.na(leaf)]
+      if (!length(leaf)) return(NA_character_)
+      paste(unique(as.character(leaf)), collapse = ";")
     }),
     assuntos_paths = if_else(assuntos_formato == "caminho_pontuado", assuntos_raw, NA_character_),
     source_file = basename(path)

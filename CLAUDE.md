@@ -59,6 +59,9 @@ _targets.R         pipeline
 
 ## Deriva de esquema conhecida (metadados diários)
 - 2021: `SeqDocumento`, `NM_MINISTRO`, datas ISO, `tipoDocumento` sem acento, assuntos em caminhos "00287.03603.03607.03608., ...".
-- 2023: `seqDocumento`, `ministro`, datas em epoch-ms, `tipoDocumento` com acento, assuntos "10076;10076" (só folha).
-- 2025–2026: `dataDistribuição` (com acento); nomes dos TXT com/sem prefixo de pasta. Tudo tratado em `read_metadata_day()`.
+- 2022–2023: `seqDocumento`, `ministro`, datas em epoch-ms, `tipoDocumento` com acento, assuntos "10318;10318" (só folhas, `;`).
+- 2024–2025: `dataDistribuição` (com acento); assuntos "6100, 9148, 6120" (só folhas, vírgula + espaço). 2026: volta ao caminho completo.
+  Nomes dos TXT com/sem prefixo de pasta. Tudo tratado em `read_metadata_day()` (split por `[;,]`).
+- **Seleção por assunto sempre por FAMÍLIA TPU** (código ou descendente, `R/tpu_codes.R`): 2022–2025 registram só folhas, então
+  "dano moral" tem de incluir 6226, 7781, 10435 etc., não só os pais 7779/10433/9992.
 - 2026-08-26: ZIP com 412 textos para 2.285 metadados (recurso parcial) — verificar antes de usar dias recentes.

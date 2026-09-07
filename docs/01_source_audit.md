@@ -23,8 +23,10 @@ Tudo abaixo foi verificado por acesso direto às APIs/arquivos nesta data. Nada 
 
 **Deriva de esquema (crítica para a ingestão):**
 - 2021: `SeqDocumento`, `NM_MINISTRO`, datas ISO, `tipoDocumento` = `DECISAO`/`ACORDAO`, `assuntos` como caminhos pontuados `"01156.06220.07779., 08826.08842.08874.10655."` (código com zeros à esquerda, último nó = assunto folha).
-- 2023 (ex.: 20230515): `seqDocumento`, `ministro`, **datas em epoch-ms**, `DECISÃO`/`ACÓRDÃO` acentuados, `assuntos` = `"10076;10076"` (só folhas, sem caminho). Nomes dos TXT com prefixo de pasta `20230515/`.
-- 2025–2026: `dataDistribuição` (acentuado), formato 2021 para o resto.
+- 2022–2023 (ex.: 20230515): `seqDocumento`, `ministro`, **datas em epoch-ms**, `DECISÃO`/`ACÓRDÃO` acentuados, `assuntos` = `"10076;10076"` (só folhas, sem caminho, separador `;`). Nomes dos TXT com prefixo de pasta `20230515/`.
+- 2024–2025: `dataDistribuição` (acentuado); `assuntos` = `"6100, 9148, 6120"` (só folhas, separador vírgula + espaço). Confirmado no censo completo (08/09): média de 1,5–1,8 códigos por documento em todos os anos após a correção do parser.
+- 2026: volta ao formato 2021 (caminho completo).
+- **Consequência metodológica:** como 2022–2025 registram apenas folhas, a seleção de "dano moral" e das matérias tem de ser por família TPU (código ou qualquer descendente, `R/tpu_codes.R`); filtrar só pelos pais 7779/10433/9992 perde os documentos registrados como 6226 (inclusão indevida em cadastro), 7781 (protesto), 10435 (acidente) etc.
 - 2026-08-26: **ZIP com 412 textos para 2.285 metadados** (dia recente incompleto). Regra: só usar dias em que |textos| ≥ 0,95·|metadados|, verificado no inventário.
 - Casamento texto↔metadado nos dias-amostra: 2021 (98–99%), 2023 (100%), 2025 (99%).
 
