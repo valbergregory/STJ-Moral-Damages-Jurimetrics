@@ -52,5 +52,7 @@ category, procedural stage, direction and ambiguity flags, and goes through cons
 annotation before use. The selection bias of the STJ corpus is declared and measured, never assumed away.
 
 ## License and citation
+
+Code: MIT ([LICENSE](LICENSE)). Text, documentation and data: see [LICENSING.md](LICENSING.md).
 Code: MIT. Documentation and study materials: CC BY 4.0. Redistributed data keep their original licenses.
 See `LICENSE` and `CITATION.cff`.
