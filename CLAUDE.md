@@ -1,4 +1,4 @@
-# CLAUDE.md — Pricing Non-Pecuniary Harm (STJ moral-damages jurimetrics)
+# CLAUDE.md — Gatekeeping the Quantum (STJ moral-damages jurimetrics; título provisório desde 08/09/2026)
 
 Projeto de artigo científico (jurimetria + análise econômica do Direito), escrito em inglês, sobre a
 heterogeneidade das indenizações por danos morais nas decisões do STJ. Pesquisador único (Valber Gregory).

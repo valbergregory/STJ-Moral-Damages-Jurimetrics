@@ -42,3 +42,6 @@ article/*.synctex.gz
 # metadados completos e snapshots (grandes; reproduzíveis)
 data/raw/stj_integras/metadata/*.json
 logs/download_metadata_run.out
+# saídas de execução (sem conteúdo de decisões)
+logs/census_run*.out
+logs/download_texts_run.out

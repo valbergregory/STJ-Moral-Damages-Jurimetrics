@@ -1,8 +1,10 @@
-# Pricing Non-Pecuniary Harm: Jurimetric Evidence on Moral-Damages Awards in Brazilian Appellate Litigation
+# Gatekeeping the Quantum: How Brazil's Superior Court of Justice Reviews Moral-Damages Awards
 
 Research compendium (R + DuckDB, single language) for a jurimetrics / law-and-economics article measuring the
 heterogeneity of moral-damages (*dano moral*) awards in decisions of Brazil's Superior Court of Justice (STJ),
 built exclusively on official open data.
+
+Working title (provisional, 2026-09-08; the sibling repository `Pricing-Non-Pecuniary-Harm` covers trial-court awards in the TJDFT). 
 
 **Status (2026-09-08):** Phase 0 complete — source audit, selection protocol, seven-day pilot of the monetary
 extractor (1,381 moral-damages documents), candidate-topic table and 11-week plan. Phase 1 (full metadata load)
