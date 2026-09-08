@@ -58,5 +58,7 @@ documentation and is disclosed as described in `docs/AI_POLICY_AND_REPRODUCIBILI
 written by the author.
 
 ## License and citation
+
+Code: MIT ([LICENSE](LICENSE)). Text, documentation and data: see [LICENSING.md](LICENSING.md).
 Code: MIT. Documentation and manuscript materials: CC BY 4.0. Redistributed data keep their original licenses.
 See `LICENSE` and `CITATION.cff`.
