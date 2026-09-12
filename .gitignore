@@ -45,3 +45,7 @@ logs/download_metadata_run.out
 # saídas de execução (sem conteúdo de decisões)
 logs/census_run*.out
 logs/download_texts_run.out
+logs/download_texts_202202.out
+logs/ingest_texts_run.out
+logs/ingest_texts_run.err
+logs/manifest_run.out

@@ -6,7 +6,10 @@ suppressPackageStartupMessages({ library(dplyr); library(readr); library(digest)
 root <- Sys.getenv("STJMD_ROOT", unset = ".")
 args <- commandArgs(trailingOnly = TRUE)
 inv <- read_csv(file.path(root, "data/interim/ckan_inventory.csv"), show_col_types = FALSE) |>
-  filter(dataset == "integras-de-decisoes-terminativas-e-acordaos-do-diario-da-justica", format == "ZIP", !is.na(key)) |>
+  # fev/2022 está publicado como recurso "202202.zip" com format vazio e URL ".../download/___" (verificado em 12/09/2026:
+  # HTTP 200, 227 MB); por isso o filtro aceita format ZIP OU nome terminando em .zip
+  filter(dataset == "integras-de-decisoes-terminativas-e-acordaos-do-diario-da-justica",
+         coalesce(format, "") == "ZIP" | stri_detect_regex(coalesce(resource_name, ""), "\\.zip$"), !is.na(key)) |>
   arrange(key, desc(last_modified)) |> distinct(key, .keep_all = TRUE) |> mutate(file = sprintf("textos%s.zip", key))
 if (length(args) == 2) inv <- filter(inv, key >= args[1], key <= args[2])
 out <- file.path(root, "data/raw/stj_integras/texts"); dir.create(out, showWarnings = FALSE, recursive = TRUE)
