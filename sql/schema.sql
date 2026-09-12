@@ -45,8 +45,20 @@ CREATE TABLE IF NOT EXISTS stg.documents (
 -- texto integral separado (grande) --------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS stg.document_text (
   seq_documento BIGINT PRIMARY KEY,
-  text_norm     VARCHAR                       -- após normalize_text()
+  key           VARCHAR,                      -- chave do ZIP de origem (AAAAMMDD ou AAAAMM)
+  source_zip    VARCHAR, member VARCHAR,      -- textosAAAAMMDD.zip e caminho interno do TXT
+  nchar         INTEGER, text_sha256 VARCHAR,
+  text_norm     VARCHAR,                      -- após normalize_text()
+  ingested_at   TIMESTAMP
 );
+-- controle de ingestão por ZIP e seleção corrente (scripts/07_ingest_texts.R) ------------------
+CREATE TABLE IF NOT EXISTS stg.ingest_log (
+  source_zip VARCHAR PRIMARY KEY, key VARCHAR, zip_exists BOOLEAN,
+  n_selected INTEGER, n_found INTEGER, n_missing INTEGER, seconds DOUBLE, ingested_at TIMESTAMP
+);
+-- stg.selected_docs: recalculada a cada execução do 07 (seq_documento, key, ano, tipo_documento, classe, numero_registro,
+-- data_publicacao + uma coluna lógica por família pedida). stg.doc_outcomes (outcome, sumula7, quantum_topic, dispositivo,
+-- extractor_version) e stg.doc_origin (origem_tipo/uf/evidencia/fonte) seguem as saídas de R/extract_money.R e R/extract_origin.R.
 
 -- assuntos CNJ (um por linha, folha + caminho) --------------------------------------------------
 CREATE TABLE IF NOT EXISTS stg.document_subjects (

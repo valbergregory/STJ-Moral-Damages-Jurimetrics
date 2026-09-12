@@ -1,0 +1,59 @@
+[2026-09-12 15:40:12] == 07_ingest_texts: famílias = negativacao+plano_saude | limit-zips=15 
+[2026-09-12 15:40:12] selecionados: 32572 documentos em 1158 chaves (dias/meses); por família: negativacao=16180, plano_saude=16516 
+[2026-09-12 15:40:12] ZIPs: 1158 necessários, 1143 já ingeridos, 15 a processar 
+[2026-09-12 15:40:16] [15/15] textos20210218.zip: 47/47 textos | acumulado 0.1 min 
+[2026-09-12 15:40:16] cobertura de texto: 478 de 32572 selecionados (1.5%) 
+[2026-09-12 15:40:16] extração pendente: 478 documentos 
+[2026-09-12 15:40:36] [lote 2/2] 78 docs, 47 candidatos | 0.3 min 
+[2026-09-12 15:40:36] templates de anotação: 121 documentos (desfecho) + 202 candidatos (valores) 
+[2026-09-12 15:40:36] relatório: docs/08_text_ingest_report.md — fim 
+[2026-09-12 15:41:07] == 07_ingest_texts: famílias = negativacao+plano_saude 
+[2026-09-12 15:41:08] selecionados: 32572 documentos em 1158 chaves (dias/meses); por família: negativacao=16180, plano_saude=16516 
+[2026-09-12 15:41:08] ZIPs: 1158 necessários, 15 já ingeridos, 1143 a processar 
+[2026-09-12 15:41:16] [50/1143] textos20210505.zip: 19/19 textos | acumulado 0.1 min 
+[2026-09-12 15:41:28] [100/1143] textos20210810.zip: 71/71 textos | acumulado 0.3 min 
+[2026-09-12 15:41:39] [150/1143] textos20211025.zip: 10/10 textos | acumulado 0.5 min 
+[2026-09-12 15:44:04] [200/1143] textos20220510.zip: 4/4 textos | acumulado 2.9 min 
+[2026-09-12 15:44:15] [250/1143] textos20220818.zip: 51/51 textos | acumulado 3.1 min 
+[2026-09-12 15:44:24] [300/1143] textos20221103.zip: 32/32 textos | acumulado 3.3 min 
+[2026-09-12 15:44:30] [350/1143] textos20230207.zip: 25/25 textos | acumulado 3.4 min 
+[2026-09-12 15:44:38] [400/1143] textos20230427.zip: 22/22 textos | acumulado 3.5 min 
+[2026-09-12 15:44:46] [450/1143] textos20230724.zip: 6/6 textos | acumulado 3.6 min 
+[2026-09-12 15:44:53] [500/1143] textos20231005.zip: 28/29 textos | acumulado 3.8 min 
+[2026-09-12 15:45:01] [550/1143] textos20240115.zip: 1/1 textos | acumulado 3.9 min 
+[2026-09-12 15:45:12] [600/1143] textos20240418.zip: 27/27 textos | acumulado 4.1 min 
+[2026-09-12 15:45:24] [650/1143] textos20240702.zip: 29/29 textos | acumulado 4.3 min 
+[2026-09-12 15:45:35] [700/1143] textos20240923.zip: 12/12 textos | acumulado 4.5 min 
+[2026-09-12 15:45:45] [750/1143] textos20241210.zip: 10/10 textos | acumulado 4.6 min 
+[2026-09-12 15:45:53] [800/1143] textos20250310.zip: 17/17 textos | acumulado 4.8 min 
+[2026-09-12 15:46:03] [850/1143] textos20250527.zip: 3/3 textos | acumulado 4.9 min 
+[2026-09-12 15:46:13] [900/1143] textos20250819.zip: 20/20 textos | acumulado 5.1 min 
+[2026-09-12 15:46:25] [950/1143] textos20251028.zip: 13/13 textos | acumulado 5.3 min 
+[2026-09-12 15:46:34] ZIP ilegível: textos20260126.zip 
+[2026-09-12 15:46:34] [1000/1143] textos20260129.zip: 2/2 textos | acumulado 5.4 min 
+[2026-09-12 15:46:36] [1050/1143] textos20260416.zip: 0/23 textos | acumulado 5.5 min 
+[2026-09-12 15:46:40] [1100/1143] textos20260702.zip: 28/42 textos | acumulado 5.5 min 
+[2026-09-12 15:46:42] [1143/1143] textos20260904.zip: 0/36 textos | acumulado 5.6 min 
+[2026-09-12 15:46:42] cobertura de texto: 28309 de 32572 selecionados (86.9%) 
+[2026-09-12 15:46:42] extração pendente: 27831 documentos 
+[2026-09-12 15:48:22] [lote 5/70] 400 docs, 360 candidatos | 1.7 min 
+[2026-09-12 15:50:03] [lote 10/70] 400 docs, 394 candidatos | 3.4 min 
+[2026-09-12 15:51:39] [lote 15/70] 398 docs, 207 candidatos | 5.0 min 
+[2026-09-12 15:53:37] [lote 20/70] 394 docs, 334 candidatos | 6.9 min 
+[2026-09-12 16:02:00] == 07_ingest_texts: famílias = negativacao+plano_saude 
+[2026-09-12 16:02:00] selecionados: 32501 documentos em 1158 chaves (dias/meses); por família: negativacao=16170, plano_saude=16455 
+[2026-09-12 16:02:00] ZIPs: 1158 necessários, 1158 já ingeridos, 0 a processar 
+[2026-09-12 16:02:01] cobertura de texto: 28238 de 32501 selecionados (86.9%) 
+[2026-09-12 16:02:01] extração pendente: 18572 documentos 
+[2026-09-12 16:03:32] [lote 5/47] 400 docs, 241 candidatos | 1.5 min 
+[2026-09-12 16:05:06] [lote 10/47] 400 docs, 300 candidatos | 3.1 min 
+[2026-09-12 16:06:40] [lote 15/47] 400 docs, 350 candidatos | 4.7 min 
+[2026-09-12 16:08:11] [lote 20/47] 400 docs, 332 candidatos | 6.2 min 
+[2026-09-12 16:09:41] [lote 25/47] 400 docs, 279 candidatos | 7.7 min 
+[2026-09-12 16:11:14] [lote 30/47] 400 docs, 294 candidatos | 9.2 min 
+[2026-09-12 16:12:42] [lote 35/47] 400 docs, 328 candidatos | 10.7 min 
+[2026-09-12 16:14:10] [lote 40/47] 400 docs, 222 candidatos | 12.2 min 
+[2026-09-12 16:15:39] [lote 45/47] 400 docs, 281 candidatos | 13.6 min 
+[2026-09-12 16:16:04] [lote 47/47] 172 docs, 92 candidatos | 14.1 min 
+[2026-09-12 16:16:05] templates de anotação: 218 documentos (desfecho) + 414 candidatos (valores) 
+[2026-09-12 16:16:05] relatório: docs/08_text_ingest_report.md — fim 
