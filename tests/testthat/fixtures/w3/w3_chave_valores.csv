@@ -1,0 +1,9 @@
+item_id,seq_documento,start_pos,end_pos,stratum,N_h,n_h,w,materia,ano,doc_sem_dm,value,unit,form,pred_category,pred_stage,pred_direction,pred_in_precedent,pred_reference_value,pred_per_capita
+V001,1001,100,112,A|negativacao|2021|comDM,40,4,10,negativacao,2021,FALSE,10000,BRL,cifra,dano_moral,origem_acordao,manutencao,FALSE,FALSE,FALSE
+V002,1002,200,212,A|negativacao|2021|comDM,40,4,10,negativacao,2021,FALSE,5000,BRL,cifra,dano_moral,stj,reducao,FALSE,FALSE,FALSE
+V003,1003,300,312,A|negativacao|2021|comDM,40,4,10,negativacao,2021,FALSE,8000,BRL,cifra,dano_moral,origem_sentenca,indeterminado,TRUE,FALSE,FALSE
+V004,1004,400,412,A|negativacao|2021|comDM,40,4,10,negativacao,2021,FALSE,15000,BRL,cifra,dano_moral,indeterminado,aumento,FALSE,TRUE,FALSE
+V005,1005,500,512,A|plano_saude|2022|comDM,10,1,10,plano_saude,2022,FALSE,2000,BRL,cifra,dano_moral,origem_acordao,manutencao,FALSE,FALSE,FALSE
+V006,1006,600,612,B|plano_saude|honorarios,20,2,10,plano_saude,2022,FALSE,1500,BRL,cifra,honorarios,stj,aumento,FALSE,FALSE,FALSE
+V007,1007,700,712,B|plano_saude|honorarios,20,2,10,plano_saude,2022,FALSE,1000,BRL,cifra,honorarios,origem_acordao,indeterminado,FALSE,FALSE,FALSE
+V008,1008,800,812,B|negativacao|multa,5,1,5,negativacao,2023,TRUE,500,BRL,cifra,multa,origem_acordao,indeterminado,FALSE,FALSE,FALSE

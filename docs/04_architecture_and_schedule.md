@@ -32,7 +32,7 @@ CKAN/SIDRA/CNJ ──(00/01 download, hash)──▶ data/raw (imutável)
 - **Background Jobs**: `scripts/02_ingest_full.R`, `scripts/03_*`, `targets::tar_make()`, `brms`.
 - **Terminal**: `git`, `renv::restore()`, `Rscript scripts/01_download_sample.R`, agendamento do snapshot diário do acervo.
 
-## Cronograma (pesquisador único; semanas corridas)
+## Cronograma original (08/09/2026; pesquisador único; semanas corridas) — mantido como histórico
 | Semana | Entrega | Critério de saída |
 |---|---|---|
 | 1 (08–12/09) | Aprovação do protocolo; carga completa dos **metadados** (≈2 GB); contagem exata por assunto/classe/ano; agendar snapshot diário do acervo | tabela de matérias com N exato |
@@ -46,6 +46,25 @@ CKAN/SIDRA/CNJ ──(00/01 download, hash)──▶ data/raw (imutável)
 | 9 | Robustez; limitações; apêndice jurídico | docs 11, 13, 15 |
 | 10–11 | Artigo em inglês (Quarto), revisão | draft completo |
 Gate obrigatório: nada da semana 5 em diante começa sem o relatório da semana 3.
+
+## Cronograma re-datado (02/10/2026)
+O plano escorregou: a Semana 2 terminou em 12/09, mas a Semana 3 dependia da aprovação da matéria, que veio em 02/10
+(decisions_log). A Semana 3 começa na segunda-feira seguinte; as demais foram deslocadas igualmente. A anotação da
+Semana 3 foi estimada em 23–35 h (docs/COMO_ANOTAR.md §3), então ela tem folga de uma semana extra. Datas são
+estimativa — o Valber ajusta.
+| Semana | Datas | Entrega | Critério de saída |
+|---|---|---|---|
+| 1 | 08–12/09 | ✔ metadados completos, censo | feito (docs/06) |
+| 2 | até 12/09 | ✔ textos + ingestão + extração | feito em 12/09 (docs/08) |
+| — | 13/09–02/10 | aguardando aprovação da matéria | aprovada em 02/10 |
+| 3 | 05–16/10 (2 semanas) | Sorteio (`scripts/08`), anotação manual 300 + 150 + re-anotação cega, métricas (`scripts/04`); iteração do extrator se o gate falhar | F1 ≥ 0,90 categoria; ≥ 0,85 estágio; docs/07 |
+| 4 | 19–23/10 | Regras de consistência; `award_events`; deflação IPCA; data card | dataset analítico congelado (v1) |
+| 5 | 26–30/10 | Descritivas; regressão quantílica; two-part | RQ1, RQ3 |
+| 6 | 02–06/11 | Hierárquico bayesiano; decomposição de variância; seleção | RQ2, RQ4 |
+| 7 | 09–13/11 | Séries/quebras; evento Tema 1365 (controle) | RQ5 |
+| 8 | 16–20/11 | Preditivo, validação temporal/por tribunal, conformal, SHAP | RQ6 |
+| 9 | 23–27/11 | Robustez; limitações; apêndice jurídico | docs 11, 13, 15 |
+| 10–11 | 30/11–11/12 | Artigo em inglês **escrito pelo autor** no Overleaf (LaTeX; Quarto substituído em 08/09); tabelas/figuras/números via `scripts/90_export_overleaf.R` | draft completo |
 
 ## Riscos
 1. Cobertura de UF/origem parcial (≈40% pelo texto no histórico; ≈90% prospectivo) → RQ2 com subamostra + teste de seleção.

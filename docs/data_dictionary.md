@@ -47,3 +47,13 @@
 
 ## `extract_origin_court()`
 `origem_tipo` (TJ/TRF/TRT), `origem_uf` (UF ou TRFn/TRT), `origem_fonte` (texto_inicio ≤3.000 chars; texto_geral; numero_cnj via J.TR do número unificado), `origem_evidencia` (trecho).
+
+## Anotação da Semana 3 (`data/annotations/w3_*`, não versionado; `scripts/08_annotation_sample.R`)
+| Arquivo | Chave | Conteúdo |
+|---|---|---|
+| `w3_modelo_valores.csv` / `w3_valores_<INI>.csv` | `item_id` (V001…) | contexto do candidato + `true_valor_correto`, `true_category`, `true_stage`, `true_direction`, `true_in_precedent`, `true_reference_value`, `nota` |
+| `w3_modelo_documentos.csv` / `w3_documentos_<INI>.csv` | `item_id` (D001…) | `true_materia`, `true_menciona_dano_moral`, `true_resultado_stj`, `true_valor_{pedido,sentenca,acordao_origem,stj}`, `true_per_capita`, `true_n_vitimas`, `true_origem_uf`, `true_incluir`, `true_motivo_exclusao`, `nota` |
+| `w3_modelo_reanotacao_*.csv` | `item_id_reanot` (RV…/RD…) | mesmas colunas, itens re-sorteados com novos IDs (re-anotação cega) |
+| `w3_chave_valores.csv` / `w3_chave_documentos.csv` | `item_id` | `seq_documento`, `stratum`, `N_h`, `n_h`, `w = N_h/n_h` (peso de desenho), predições `pred_*` do extrator v0.2 |
+| `w3_chave_reanotacao_*.csv` | `item_id_reanot` → `item_id` | ligação re-anotação → 1ª passada |
+Códigos e regras de preenchimento: `docs/COMO_ANOTAR.md`.

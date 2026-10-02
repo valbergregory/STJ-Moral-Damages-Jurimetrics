@@ -5,6 +5,10 @@ Convenções: **[Terminal]** = aba Terminal do RStudio (Git, downloads, Rscript)
 Antes de tudo: abrir o projeto na raiz e rodar `renv::restore()` no Console (uma vez; ~5–15 min na primeira instalação).
 Rscript: `"C:\Program Files\R\R-4.4.3\bin\Rscript.exe"`. Variável opcional `STJMD_ROOT` = raiz do projeto quando rodar de fora.
 
+> **Próximo passo (02/10/2026): matéria APROVADA** (negativação = principal; plano de saúde = controle; decisions_log).
+> Começar a **Semana 3**: passos 5 → 5b → 6 → 7 abaixo, seguindo `docs/COMO_ANOTAR.md`. Os passos 0–2e já foram
+> executados (Semanas 1–2); não é preciso refazê-los.
+
 | # | Passo | Como | Lê | Grava | Duração |
 |---|---|---|---|---|---|
 | 0 | Inventário do Portal de Dados Abertos do STJ (CKAN) | [Terminal] `Rscript scripts/00_inventory_ckan.R` | API CKAN | `data/raw/ckan/package_show_*.json`, `data/interim/ckan_inventory.csv` | 1–2 min |
@@ -18,8 +22,9 @@ Rscript: `"C:\Program Files\R\R-4.4.3\bin\Rscript.exe"`. Variável opcional `STJ
 | 3 | Corpus-amostra normalizado | [Job] `R/build_sample_corpus.R` | passo 1 | `data/interim/sample_all_docs.rds`, `sample_dm_corpus.rds` | 1–2 min |
 | 4 | Piloto de extração monetária | [Job] `scripts/03_pilot_money_extraction.R` | passo 3 | `data/interim/pilot_*.csv`, `data/stjmd_pilot.duckdb`, `data/annotations/pilot_annotation_template.csv`, `logs/pilot_summary.txt` | ~1 min |
 | 5 | Testes unitários | [Terminal] `Rscript -e "testthat::test_dir('tests/testthat')"` | `R/` | console | < 1 min |
-| 6 | Anotação manual (pesquisador) | Excel/LibreOffice em `data/annotations/pilot_annotation_template.csv` (piloto, 182 candidatos) **ou, preferível após o passo 2e, `full_doc_outcome_template.csv` (desfecho por documento) e `full_amount_template.csv` (valores)** → salvar como `*_<iniciais>.csv` | passos 4 / 2e | anotações | 2–4 h |
-| 7 | Métricas de validade (P/R/F1 por campo) | [Terminal] `Rscript scripts/04_validity_metrics.R` (a escrever após o passo 6) | passo 6 | `docs/07_extraction_validity.md` | < 1 min |
+| 5b | **Sorteio da amostra de anotação (Semana 3)**: 300 candidatos + 150 documentos + re-anotação cega 45 + 25, estratificado e semeado (seed 20261002) | [Job] `scripts/08_annotation_sample.R` (`--force` refaz o mesmo sorteio; recusa sobrescrever anotação) | passo 2e (`data/stjmd.duckdb`) | `data/annotations/w3_modelo_*.csv` (planilhas cegas), `w3_chave_*.csv` (predições/pesos), `w3_textos/*.txt`, `w3_amostra_estratos.csv`; `logs/annotation_sample.log` (só contagens) | ~5–15 min |
+| 6 | Anotação manual (pesquisador) | Excel/LibreOffice: copiar `w3_modelo_valores.csv` → `w3_valores_<INI>.csv` e `w3_modelo_documentos.csv` → `w3_documentos_<INI>.csv`; ≥ 7 dias depois, as re-anotações (`w3_reanotacao_*_<INI>.csv`). Guia: **`docs/COMO_ANOTAR.md`**. (Templates antigos `pilot_annotation_template.csv` e `full_*_template.csv` ficam superados.) | passo 5b | anotações (não versionadas) | ≈ 23–35 h |
+| 7 | Métricas de validade: P/R/F1 por campo (IC bootstrap, ponderado pelo desenho), valores por estágio no documento, kappa intra-anotador, gate | [Terminal] `Rscript scripts/04_validity_metrics.R` (aceita anotação parcial; lê também `pilot_annotation_<INI>.csv`) | passo 6 | `docs/07_extraction_validity.md`, `outputs/overleaf/tables/extraction_validity.tex` | < 1 min |
 | 8 | Manifesto de downloads (URL/data/SHA-256/licença) | [Terminal] `Rscript scripts/99_manifest.R` | `data/raw/` | `data/raw/MANIFEST.csv` | < 1 min |
 | 9 | Exportação para o Overleaf | [Terminal] `Rscript scripts/90_export_overleaf.R` | `data/interim/`, resultados | `outputs/overleaf/{tables/*.tex, figures/*.pdf,*.png, numbers.tex}` | < 1 min |
 | 10 | Pipeline completo | [Job] `targets::tar_make()` | tudo acima | `_targets/` | depende dos alvos ativos |

@@ -6,9 +6,12 @@ built exclusively on official open data.
 
 Working title (provisional, 2026-09-08; the sibling repository `Pricing-Non-Pecuniary-Harm` covers trial-court awards in the TJDFT). 
 
-**Status (2026-09-08):** Phase 0 complete — source audit, selection protocol, seven-day pilot of the monetary
-extractor (1,381 moral-damages documents), candidate-topic table and 11-week plan. Phase 1 (full metadata load)
-in progress. **No estimation has been run.** Read `docs/` in numeric order; `docs/RUNBOOK.md` is the executable
+**Status (2026-10-02):** Phases 0–1 complete — source audit, selection protocol, extractor pilot, full metadata
+census (3.48 M documents) and full-text ingestion + extraction for the selected topics (week 2, 2026-09-12). **Topic
+approved by the author on 2026-10-02** (was provisional): main = wrongful listing in credit-default registries (CNJ
+TPU 6226); control = health-plan coverage denial (STJ Tema 1365). Next: week 3, manual annotation for extraction
+validity (`scripts/08_annotation_sample.R`, `docs/COMO_ANOTAR.md`; schedule re-dated in `docs/04`). **No estimation
+has been run.** Read `docs/` in numeric order; `docs/RUNBOOK.md` is the executable
 step-by-step.
 
 ## Research questions
@@ -43,6 +46,9 @@ Rscript scripts/01_download_sample.R         # sample days only (config/sample_d
 Rscript R/fetch_ipca.R                       # IPCA raw + meta.json
 Rscript R/build_sample_corpus.R              # normalise schema drift, select moral-damages docs
 Rscript scripts/03_pilot_money_extraction.R  # monetary extraction pilot
+Rscript scripts/07_ingest_texts.R            # full texts of the selected topics + extraction (needs steps 2/2c/2d)
+Rscript scripts/08_annotation_sample.R       # week 3: stratified, seeded annotation sample (not versioned)
+Rscript scripts/04_validity_metrics.R        # after manual annotation: docs/07_extraction_validity.md
 Rscript -e "testthat::test_dir('tests/testthat')"
 Rscript scripts/99_manifest.R                # data/raw/MANIFEST.csv
 Rscript scripts/90_export_overleaf.R         # outputs/overleaf/

@@ -13,8 +13,8 @@
 #   Rscript scripts/07_ingest_texts.R --only-extract       # só extração sobre o que já está em stg.document_text
 # Idempotente/retomável: ZIP registrado em stg.ingest_log é pulado; a extração só roda para documentos ainda sem linha
 # em stg.doc_outcomes. Seleção = classes cíveis (REsp/AREsp/EREsp/EAREsp) ∩ família "dano moral" ∩ (uma das famílias
-# pedidas). A matéria principal/controle ainda AGUARDA aprovação do pesquisador (docs/03, decisions_log) — trocar
-# --families não exige apagar nada: novos documentos são apenas acrescentados.
+# pedidas). Matéria principal/controle APROVADA pelo pesquisador em 02/10/2026 (docs/03, decisions_log) — são as
+# famílias padrão; trocar --families não exige apagar nada: novos documentos são apenas acrescentados.
 suppressPackageStartupMessages({
   library(dplyr); library(purrr); library(stringi); library(readr); library(tibble); library(tidyr); library(DBI); library(duckdb); library(digest)
 })
@@ -158,7 +158,7 @@ if (has_oc) {
   log(sprintf("templates de anotação: %d documentos (desfecho) + %d candidatos (valores)", nrow(doc_ann), nrow(am_ann)))
 }
 md <- c("# 08 — Ingestão dos textos completos e extração (Semana 2)", "",
-  sprintf("Gerado em %s por `scripts/07_ingest_texts.R` (famílias TPU: %s; extrator v%s). Seleção = classes cíveis ∩ família \"dano moral\" ∩ famílias pedidas, a partir de `stg.documents_meta` (docs/06). A escolha da matéria principal/controle continua **aguardando aprovação** (docs/03); o script aceita `--families=` e apenas acrescenta documentos.",
+  sprintf("Gerado em %s por `scripts/07_ingest_texts.R` (famílias TPU: %s; extrator v%s). Seleção = classes cíveis ∩ família \"dano moral\" ∩ famílias pedidas, a partir de `stg.documents_meta` (docs/06). Matéria principal (negativação) e de controle (plano de saúde) aprovadas pelo pesquisador em 02/10/2026 (docs/03); o script aceita `--families=` e apenas acrescenta documentos.",
           format(Sys.time(), "%Y-%m-%d"), paste(families, collapse = ", "), EXTRACTOR_VERSION), "",
   sprintf("- Selecionados: **%d** documentos em %d chaves (dias/meses); com texto ingerido: **%d** (%.1f%%).", cov$n_sel, n_distinct(sel$key), cov$n_txt, 100 * cov$n_txt / cov$n_sel),
   sprintf("- ZIPs processados: %d (inexistentes: %d); textos não encontrados dentro dos ZIPs: %d.", nrow(il), sum(!il$zip_exists), sum(il$n_missing)), "",
@@ -169,6 +169,6 @@ if (has_oc) md <- c(md,
   "## Candidatos monetários por categoria", "", knitr::kable(cat_tab), "",
   "## Candidatos 'dano_moral' por estágio × direção", "", knitr::kable(stage_tab |> pivot_wider(names_from = direction, values_from = n, values_fill = 0)), "",
   "## Cobertura do tribunal de origem", "", knitr::kable(origin_tab |> pivot_wider(names_from = materia, values_from = n, values_fill = 0)), "",
-  "## Próximo passo", "", "Anotação manual pelo pesquisador em `data/annotations/full_doc_outcome_template.csv` (desfecho) e `full_amount_template.csv` (valores); depois `scripts/04_validity_metrics.R` → docs/07_extraction_validity.md. Nenhum número acima é resultado do artigo antes desse gate.")
+  "## Próximo passo", "", "Semana 3: `scripts/08_annotation_sample.R` (amostra estratificada para anotação) → anotação manual pelo pesquisador conforme `docs/COMO_ANOTAR.md` → `scripts/04_validity_metrics.R` → docs/07_extraction_validity.md. Nenhum número acima é resultado do artigo antes desse gate.")
 writeLines(md, file.path(root, "docs/08_text_ingest_report.md"))
 log("relatório: docs/08_text_ingest_report.md — fim")

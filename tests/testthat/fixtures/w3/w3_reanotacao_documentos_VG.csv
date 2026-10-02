@@ -1,0 +1,3 @@
+item_id_reanot,seq_documento,classe,tipo_documento,ano,arquivo_texto,true_materia,true_menciona_dano_moral,true_resultado_stj,true_valor_pedido,true_valor_sentenca,true_valor_acordao_origem,true_valor_stj,true_per_capita,true_n_vitimas,true_origem_uf,true_incluir,true_motivo_exclusao,nota
+RD001,2002,REsp,ACORDAO,2021,w3_textos/2002.txt,negativacao,sim,reduzido_stj,,20000,20000,10000,nao,1,RJ,sim,,
+RD002,2001,AREsp,DECISAO,2021,w3_textos/2001.txt,negativacao,sim,mantido,,,10000,,nao,1,SP,sim,,

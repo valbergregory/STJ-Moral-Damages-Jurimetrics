@@ -1,0 +1,9 @@
+﻿item_id;ano;valor_extraido;valor_lido;contexto;arquivo_texto;true_valor_correto;true_category;true_stage;true_direction;true_in_precedent;true_reference_value;nota
+V001;2021;R$ 10.000,00;R$ 10.000,00;…texto sintético ⟦R$ 10.000,00⟧ …;w3_textos/1001.txt;sim;dano_moral;origem_acordao;manutencao;não;não;
+V002;2021;R$ 5.000,00;R$ 5.000,00;…;w3_textos/1002.txt;sim;Dano moral;stj;redução;nao;nao;
+V003;2021;R$ 8.000,00;R$ 8.000,00;…;w3_textos/1003.txt;sim;dano_moral;origem_sentenca;indeterminado;sim;nao;
+V004;2021;R$ 15.000,00;R$ 15.000,00;…;w3_textos/1004.txt;nao;dano_moral;origem_acordao;aumento;nao;sim;número lido errado (exemplo)
+V005;2022;R$ 2.000,00;R$ 2.000,00;…;w3_textos/1005.txt;sim;honorarios;origem_acordao;manutencao;nao;nao;
+V006;2022;R$ 1.500,00;R$ 1.500,00;…;w3_textos/1006.txt;sim;honorarios;stj;aumento;nao;nao;
+V007;2022;R$ 1.000,00;R$ 1.000,00;…;w3_textos/1007.txt;sim;honorarios;origem_acordao;indeterminado;nao;nao;
+V008;2023;R$ 500,00;R$ 500,00;…;w3_textos/1008.txt;;;;;;;ainda não anotado

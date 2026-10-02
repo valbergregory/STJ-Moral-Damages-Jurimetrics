@@ -1,0 +1,5 @@
+item_id,seq_documento,stratum,N_h,n_h,w,materia,ano,has_brl,pred_outcome,pred_sumula7,pred_valor_pedido,pred_valor_sentenca,pred_valor_acordao_origem,pred_valor_stj,pred_origem_uf
+D001,2001,P|negativacao|2021|comRS|comDM,100,2,50,negativacao,2021,TRUE,mantido_sumula7,TRUE,,,10000,,SP
+D002,2002,P|negativacao|2021|comRS|comDM,100,2,50,negativacao,2021,TRUE,reduzido_stj,FALSE,,20000,20000,10000;12000,RJ
+D003,2003,P|plano_saude|2022|semRS|semDM,60,1,60,plano_saude,2022,FALSE,sem_dano_moral,FALSE,,,,,
+D004,2004,R|provido_verificar,9,1,9,plano_saude,2022,TRUE,provido_verificar,FALSE,,,5000,,MG
