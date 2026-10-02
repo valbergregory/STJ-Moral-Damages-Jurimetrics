@@ -174,7 +174,23 @@ re-validação. (Recomendação metodológica; a decisão é do pesquisador.)
 `data/annotations/` inteiro fica fora do Git (`.gitignore`). Na coluna `nota`, nunca escreva nome de parte, advogado ou
 magistrado. `docs/07` e `logs/annotation_sample.log` só têm contagens e podem ser versionados.
 
-## 9. Perguntas ao pesquisador (definições que faltam; convenção provisória entre parênteses)
+## 9. Definições da anotação — DECIDIDAS pelo pesquisador em 02/10/2026
+
+| # | Decisão |
+|---|---|
+| Q1 | Gate = **F1 da classe `dano_moral`** (categoria) e estágio dos candidatos de dano moral verdadeiro; macro-F1 reportado como informativo. |
+| Q2 | `pedido` inclui o valor pedido na inicial **e** o pedido ao STJ; quando for o recursal, registrar na `nota`. |
+| Q3 | `valor_stj` sob Súmula 7 sem repetição do valor: **vazio** (a regra 5 da docs/02 é aplicada na consistência). |
+| Q4 | Desfechos sem código: `outro` + `nota`; códigos próprios podem ser criados depois, com a lista de notas. |
+| Q5 | AgInt/EDcl que repetem o valor: anotar normalmente. |
+| Q6 | Protesto (TPU 7781) e ameaça de cadastro sem inscrição: `outra` + `nota` (não é `negativacao`). |
+| Q7 | Desenho **cego** confirmado (planilha sem predições). |
+| Q8 | Sem segundo anotador por ora; só concordância intra-anotador (o script aceita outros `<INI>` no futuro). |
+| Q9 | Valores em precedente citado: estágio e direção `indeterminado`. |
+
+Texto original das perguntas (mantido para registro):
+
+## 9-a. Perguntas ao pesquisador (convenção provisória entre parênteses)
 
 - **Q1 — leitura do gate.** "F1 ≥ 0,90 em categoria" é o macro-F1 sobre todas as categorias ou o F1 da classe
   `dano_moral`? "≥ 0,85 em estágio" vale para todos os candidatos ou só para os de dano moral? (O relatório mostra as
