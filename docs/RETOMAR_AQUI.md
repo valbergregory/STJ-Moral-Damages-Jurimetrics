@@ -19,10 +19,17 @@
 - Desenho "IA sugere, pesquisador decide" **aprovado** (COMO_ANOTAR.md Q10); convenções Q11 (ementa repetida) e
   Q12 (DM após sentença improcedente → `aumento`) **adotadas**.
 
+## Decidido/feito em 02/10 (noite)
+- Q13–Q17 aprovadas (COMO_ANOTAR.md §9). Implementado em R: `R/annotation_vocab.R`, `scripts/09_check_annotation.R`,
+  `04_validity_metrics.R` (Q13 + seção E, taxa IA → final), testes. Protocolo da IA: `docs/ia_preanotacao_protocolo.md`.
+- Pré-anotação dos documentos D001–D150 entregue ao autor (fora do Git): `w3_documentos_VG_preanotado_IA.csv`,
+  harmonizada por Q13–Q17, 0 erro no verificador; 8 de confiança baixa (D023, D024, D065, D078, D080, D090, D110, D129).
+
 ## PENDENTE (trabalho do autor)
-1. Copiar a planilha da IA para `data/annotations/w3_valores_VG_IA.csv` (intocada) e para `w3_valores_VG.csv` (trabalho).
-2. Revisar as 300 linhas: primeiro as 15 de confiança baixa, depois os 8 erros do extrator (V051, V125, V234, V267,
-   V277, V118, V293, V172), depois média e alta; aplicar Q11 em V030/V059/V079/V090/V120 e Q12 em V005/V072/V077/V110/V195.
-3. Planilha de documentos D001–D150 (pré-anotação por IA possível se o autor enviar os textos D*).
-4. `Rscript scripts/04_validity_metrics.R` → `docs/07_extraction_validity.md` (gate da Semana 3).
+1. Salvar as planilhas da IA intocadas como `data/annotations/w3_valores_VG_IA.csv` e `w3_documentos_VG_IA.csv`;
+   trabalhar nas cópias `w3_valores_VG.csv` e `w3_documentos_VG.csv`.
+2. Revisar valores (15 baixa → 8 erros do extrator → Q11/Q12 → média → alta) e documentos (8 baixa → linhas com
+   "Q14 ... conferir" → DÚVIDA → resto).
+3. Ao fim de cada sessão: `Rscript scripts/09_check_annotation.R`.
+4. `Rscript scripts/04_validity_metrics.R` → `docs/07_extraction_validity.md` (gate da Semana 3 + seção E).
 5. Re-anotação cega (45 + 25) ≥ 7 dias após a revisão, sem sugestões.

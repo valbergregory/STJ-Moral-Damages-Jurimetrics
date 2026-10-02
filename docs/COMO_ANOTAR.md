@@ -120,7 +120,7 @@ Leia o texto integral (`arquivo_texto`). Uma linha por documento:
 
 | Coluna | Valores aceitos | Regra |
 |---|---|---|
-| `true_materia` | `negativacao`, `plano_saude`, `ambas`, `outra` | Pelo **texto**: inscrição indevida em cadastro de inadimplentes / negativa de cobertura de plano de saúde (ver Q6) |
+| `true_materia` | `negativacao`, `plano_saude`, `ambas`, `outra`, `nao_consta` | Pelo **texto**: inscrição indevida em cadastro de inadimplentes / negativa de cobertura de plano de saúde (ver Q6). `nao_consta` = o texto não descreve a lide (ver Q13); nunca deduzir pela identidade da parte |
 | `true_menciona_dano_moral` | `sim` / `nao` | O texto menciona dano moral/extrapatrimonial em qualquer ponto? (valida o sinalizador `sem_dano_moral`, achado de 12/09: ≈ 50 % dos documentos do código TPU não mencionam) |
 | `true_resultado_stj` | `sem_dano_moral`, `mantido_sumula7`, `mantido`, `majorado_stj`, `reduzido_stj`, `nao_provido_sem_quantum`, `outro`, `indeterminado` | O que o STJ decidiu **quanto ao valor do dano moral** (definições abaixo) |
 | `true_valor_pedido` | R$ (vazio se ausente) | ver Q2 |
@@ -156,6 +156,13 @@ Pelo menos 7 dias depois de terminar cada bloco, copie `w3_modelo_reanotacao_val
 `w3_reanotacao_valores_<INI>.csv` (e o equivalente de documentos) e anote do zero, **sem abrir** a 1ª passada nem as
 chaves. Os itens têm IDs novos e outra ordem. O script cruza as duas passadas e calcula o kappa de Cohen por campo.
 
+## 7-a. Conferir a planilha (ao fim de cada sessão)
+
+**[Terminal]** `Rscript scripts/09_check_annotation.R` — mostra quantas linhas já têm anotação e lista, por `item_id`,
+códigos fora do vocabulário, valores ilegíveis, UF inválida e quebras das regras de coerência (Q9, Q13, Q15, critérios da
+docs/02). "erro" deve ser corrigido antes das métricas; "aviso" é só para conferir. Não altera nada. O vocabulário e as
+regras estão em `R/annotation_vocab.R` (testes em `tests/testthat/test-annotation_vocab.R`).
+
 ## 7. Rodar as métricas
 
 **[Terminal]** `Rscript scripts/04_validity_metrics.R` (opções: `--boot=1000 --seed=20261002 --tol=0.5`).
@@ -190,6 +197,11 @@ magistrado. `docs/07` e `logs/annotation_sample.log` só têm contagens e podem 
 | Q10 | **Pré-anotação por IA dos valores ("IA sugere, pesquisador decide")**: a planilha de valores parte das sugestões da IA (nota `IA[alta\|media\|baixa\|calibragem]: ...`); o pesquisador revisa **todas** as 300 linhas, inclusive V001–V020, e só rótulos revisados contam. A versão da IA fica intocada em `data/annotations/w3_valores_VG_IA.csv`; o trabalho vai em `w3_valores_VG.csv`; discordâncias registradas na `nota` como `\| VG: motivo`. A re-anotação cega (RV) é feita **sem** sugestões, ≥ 7 dias depois. As sugestões são da IA, não do extrator: o desenho continua cego quanto às predições avaliadas (Q7). O procedimento e a taxa de alteração IA → final serão declarados no artigo. |
 | Q11 | **Mesma ementa transcrita em vários documentos** (ex.: REsp 2.069.520/RS): se o número da ementa for o do próprio documento, `true_in_precedent = nao` e estágio `stj`; caso contrário, precedente citado (Q9). Conferir pelo número do processo no topo do texto. |
 | Q12 | **Tribunal fixa o dano moral após sentença improcedente**: direção = `aumento` (de zero para o valor), com `nota` "sentença improcedente". Se o texto não disser o que a sentença decidiu, `indeterminado`. |
+| Q13 | **Decisão que não descreve a lide** (Súmula 182/284, intempestividade etc.): `true_materia = nao_consta` (nunca deduzir pela parte); `true_menciona_dano_moral` pelo texto; resultado `sem_dano_moral` se não menciona, `nao_provido_sem_quantum` se menciona e o recurso não passou; `true_incluir = nao`, motivo `sem_valor_estagio`. Nas métricas, `nao_consta` sai do P/R/F1 de matéria e a proporção é reportada à parte. |
+| Q14 | **STJ leva o dano moral de zero a um valor ou de um valor a zero**: restabelece a sentença depois que o tribunal de origem afastou o DM → `majorado_stj`; restabelece a improcedência (ou afasta o DM) depois que a origem o fixou → `reduzido_stj`. |
+| Q15 | **Dano moral só em precedente citado**: `true_menciona_dano_moral = sim` (vale a literalidade) e `true_resultado_stj = sem_dano_moral`. |
+| Q16 | **Provimento parcial alheio ao valor do DM** (só multa, honorários, juros etc.): `nao_provido_sem_quantum`. |
+| Q17 | **Valor pedido na apelação** também é `pedido` (amplia a Q2); registrar "pedido na apelação" na `nota`. |
 
 Texto original das perguntas (mantido para registro):
 

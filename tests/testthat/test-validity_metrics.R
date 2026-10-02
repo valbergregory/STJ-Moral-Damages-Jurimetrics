@@ -54,7 +54,7 @@ test_that("Excel pt-BR CSV (semicolon + BOM) is read", {
 test_that("04_validity_metrics.R runs end-to-end on synthetic fixtures", {
   tmp <- file.path(tempdir(), "w3_metrics"); unlink(tmp, recursive = TRUE)
   dir.create(file.path(tmp, "R"), recursive = TRUE); dir.create(file.path(tmp, "data", "annotations"), recursive = TRUE)
-  file.copy(file.path(root, "R", "validity_metrics.R"), file.path(tmp, "R"))
+  file.copy(file.path(root, "R", c("validity_metrics.R", "annotation_vocab.R")), file.path(tmp, "R"))
   file.copy(list.files(fx, "\\.csv$", full.names = TRUE), file.path(tmp, "data", "annotations"))
   old <- Sys.getenv("STJMD_ROOT"); Sys.setenv(STJMD_ROOT = tmp); on.exit(Sys.setenv(STJMD_ROOT = old), add = TRUE)
   expect_output(source(file.path(root, "scripts", "04_validity_metrics.R"), local = new.env()), "07_extraction_validity")
@@ -72,6 +72,11 @@ test_that("04_validity_metrics.R runs end-to-end on synthetic fixtures", {
   expect_true(any(grepl("| estagio | 4 | 0.750 | 0.375 | 0.600 |", md, fixed = TRUE)))
   expect_true(any(grepl("| resultado_stj | 2 | 0.500 |", md, fixed = TRUE)))
   expect_true(any(grepl("Gate da Semana 3", md)))
+  # Q13: nenhum `nao_consta` nos fixtures; Q10: a IA difere da final em 1 de 4 matérias e 1 de 4 valores STJ
+  expect_true(any(grepl("(`nao_consta`, Q13): 0 de 4 documentos", md, fixed = TRUE)))
+  expect_true(any(grepl("## E. Pré-anotação por IA", md, fixed = TRUE)))
+  expect_true(any(grepl("| documentos | VG | true_materia | 4 | 1 | 0.250 |", md, fixed = TRUE)))
+  expect_true(any(grepl("| documentos | VG | true_valor_stj | 4 | 1 | 0.250 |", md, fixed = TRUE)))
   expect_true(file.exists(file.path(tmp, "outputs", "overleaf", "tables", "extraction_validity.tex")))
 })
 
