@@ -42,7 +42,8 @@ log(sprintf("== 08_annotation_sample: famílias=%s | n_amounts=%d n_docs=%d (rar
             paste(families, collapse = "+"), n_amounts, n_docs, n_rare, share_dm, n_re_a, n_re_d, seed))
 
 con <- dbConnect(duckdb(), file.path(root, "data/stjmd.duckdb"), read_only = TRUE)
-on.exit(try(dbDisconnect(con, shutdown = TRUE), silent = TRUE), add = TRUE)
+# Sem on.exit() aqui: no nível superior de um script executado via source()/Background Job do RStudio, on.exit()
+# dispara logo após a própria linha e fecha a conexão ("Invalid connection"). O dbDisconnect() explícito fica abaixo.
 fam_where <- paste(sprintf("coalesce(s.%s, FALSE)", families), collapse = " OR ")
 fam_cols <- paste(map_chr(c("negativacao", "plano_saude"), ~ if (.x %in% families) sprintf("coalesce(s.%s, FALSE) AS %s", .x, .x) else sprintf("FALSE AS %s", .x)), collapse = ", ")
 
