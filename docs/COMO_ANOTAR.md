@@ -187,6 +187,9 @@ magistrado. `docs/07` e `logs/annotation_sample.log` só têm contagens e podem 
 | Q7 | Desenho **cego** confirmado (planilha sem predições). |
 | Q8 | Sem segundo anotador por ora; só concordância intra-anotador (o script aceita outros `<INI>` no futuro). |
 | Q9 | Valores em precedente citado: estágio e direção `indeterminado`. |
+| Q10 | **Pré-anotação por IA dos valores ("IA sugere, pesquisador decide")**: a planilha de valores parte das sugestões da IA (nota `IA[alta\|media\|baixa\|calibragem]: ...`); o pesquisador revisa **todas** as 300 linhas, inclusive V001–V020, e só rótulos revisados contam. A versão da IA fica intocada em `data/annotations/w3_valores_VG_IA.csv`; o trabalho vai em `w3_valores_VG.csv`; discordâncias registradas na `nota` como `\| VG: motivo`. A re-anotação cega (RV) é feita **sem** sugestões, ≥ 7 dias depois. As sugestões são da IA, não do extrator: o desenho continua cego quanto às predições avaliadas (Q7). O procedimento e a taxa de alteração IA → final serão declarados no artigo. |
+| Q11 | **Mesma ementa transcrita em vários documentos** (ex.: REsp 2.069.520/RS): se o número da ementa for o do próprio documento, `true_in_precedent = nao` e estágio `stj`; caso contrário, precedente citado (Q9). Conferir pelo número do processo no topo do texto. |
+| Q12 | **Tribunal fixa o dano moral após sentença improcedente**: direção = `aumento` (de zero para o valor), com `nota` "sentença improcedente". Se o texto não disser o que a sentença decidiu, `indeterminado`. |
 
 Texto original das perguntas (mantido para registro):
 

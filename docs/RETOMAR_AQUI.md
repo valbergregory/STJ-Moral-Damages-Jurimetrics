@@ -15,12 +15,14 @@
    "R$ X mil" como R$ X,00 (V051, V125, V234, V267, V277) e erra extensos parciais (V118, V293) e
    "2,5 salários" (V172).
 
-## PENDENTE (decisão do autor)
-- Adotar ou não o desenho "IA sugere, pesquisador decide" para os valores. Se adotar: registrar no
-  decisions_log, revisar todas as linhas (começar pelos 15 de confiança baixa), salvar como
-  `data/annotations/w3_valores_VG.csv`, fazer a re-anotação cega (45 RV) **sem sugestões** ≥ 7 dias
-  depois, e declarar no artigo.
-- Dúvidas em aberto: V030/V059/V079/V090/V120 (mesma ementa do REsp 2.069.520/RS: precedente ou o próprio
-  julgado?); direção quando o TJ fixa DM após sentença improcedente (aumento ou indeterminado?).
-- Planilha de documentos D001–D150: ainda não anotada (6–10 min/doc).
-- Depois: `Rscript scripts/04_validity_metrics.R` → `docs/07_extraction_validity.md` (gate da Semana 3).
+## Decidido em 02/10 (tarde)
+- Desenho "IA sugere, pesquisador decide" **aprovado** (COMO_ANOTAR.md Q10); convenções Q11 (ementa repetida) e
+  Q12 (DM após sentença improcedente → `aumento`) **adotadas**.
+
+## PENDENTE (trabalho do autor)
+1. Copiar a planilha da IA para `data/annotations/w3_valores_VG_IA.csv` (intocada) e para `w3_valores_VG.csv` (trabalho).
+2. Revisar as 300 linhas: primeiro as 15 de confiança baixa, depois os 8 erros do extrator (V051, V125, V234, V267,
+   V277, V118, V293, V172), depois média e alta; aplicar Q11 em V030/V059/V079/V090/V120 e Q12 em V005/V072/V077/V110/V195.
+3. Planilha de documentos D001–D150 (pré-anotação por IA possível se o autor enviar os textos D*).
+4. `Rscript scripts/04_validity_metrics.R` → `docs/07_extraction_validity.md` (gate da Semana 3).
+5. Re-anotação cega (45 + 25) ≥ 7 dias após a revisão, sem sugestões.
