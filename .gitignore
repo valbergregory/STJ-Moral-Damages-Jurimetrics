@@ -31,6 +31,11 @@ logs/pilot_*.txt
 logs/pilot_*.out
 logs/stj_consulta_test.html
 data/annotations/*.csv
+# Semana 3: textos integrais das decisões sorteadas e eventuais planilhas salvas em outro formato
+data/annotations/w3_textos/
+data/annotations/*.txt
+data/annotations/*.xlsx
+data/annotations/*.ods
 # LaTeX build
 article/*.aux
 article/*.log

@@ -1,5 +1,9 @@
 # 03 — Matérias candidatas e recomendação (atualizado 08/09/2026 com o censo completo dos metadados)
 
+> **Status: APROVADA pelo pesquisador em 02/10/2026** (docs/decisions_log.md, entrada de 2026-10-02): matéria principal =
+> inscrição indevida em cadastro de inadimplentes (família TPU 6226, negativação); matéria de controle = negativa de
+> cobertura por plano de saúde (6233/12486; evento Tema 1365). Até 02/10 esta recomendação era provisória.
+
 Duas bases de evidência: (A) o **piloto textual** de 7 dias (16.938 documentos; 1.381 mencionam dano moral; 271 com valor em R$; 159 com valor de dano moral classificável fora de precedente) e (B) o **censo dos metadados completos** (`docs/06_metadata_census.md`: 3.482.383 documentos de 2021-01 a 2026-09; 247.420 na família TPU "dano moral", 242.293 em classes cíveis REsp/AREsp/EREsp/EAREsp).
 
 ## A. Contagens exatas por família TPU (docs de dano moral cíveis, por ano de publicação)
