@@ -8,11 +8,13 @@
 #     w3_reanotacao_documentos_<INI>.csv   = re-anotação cega (+ w3_chave_reanotacao_documentos.csv)
 #   Piloto (legado, opcional): pilot_annotation_<INI>.csv (template do scripts/03 com pred_* e true_* na mesma planilha).
 #   Linhas sem rótulo verdadeiro são ignoradas campo a campo: dá para rodar com a anotação parcial.
+#   Pré-anotação por IA (Q10, opcional): w3_valores_<INI>_IA.csv e w3_documentos_<INI>_IA.csv intocados → taxa de alteração IA → final.
+#   Antes de rodar: Rscript scripts/09_check_annotation.R (vocabulário e coerência).
 # Saídas: docs/07_extraction_validity.md (só métricas agregadas, sem trechos) e outputs/overleaf/tables/extraction_validity.tex
 # Uso: Rscript scripts/04_validity_metrics.R [--dir=data/annotations] [--boot=1000] [--seed=20261002] [--tol=0.5]
 suppressPackageStartupMessages({ library(dplyr); library(readr); library(purrr); library(tidyr); library(stringi); library(tibble) })
 root <- Sys.getenv("STJMD_ROOT", unset = "."); args <- commandArgs(trailingOnly = TRUE)
-source(file.path(root, "R/validity_metrics.R"))
+source(file.path(root, "R/validity_metrics.R")); source(file.path(root, "R/annotation_vocab.R"))
 opt <- function(name, default) { v <- args[startsWith(args, paste0("--", name, "="))]; if (length(v)) sub("^--[^=]+=", "", v[1]) else default }
 ann_dir <- opt("dir", file.path(root, "data/annotations")); B <- as.integer(opt("boot", 1000)); seed <- as.integer(opt("seed", 20261002))
 tol <- as.numeric(opt("tol", 0.5))
@@ -89,10 +91,14 @@ if (length(f_doc)) {
              "Valores preditos por estágio = candidatos `dano_moral` em R$, fora de precedente e de valor de referência. Desfecho predito `provido_verificar`/`indeterminado` nunca coincide com um código humano e conta como erro.", "")
     s_out <- field_section(d$pred_outcome, d$true_resultado_stj, "Resultado no STJ quanto ao quantum", d$w)
     s_men <- field_section(d$pred_menciona, d$true_menciona, "Menciona dano moral (valida o sinalizador `sem_dano_moral` de 12/09)", d$w)
-    s_mat <- field_section(d$materia, d$true_materia, "Matéria (família TPU × leitura do texto)", d$w)
+    # Q13: `nao_consta` = o texto não permite identificar a matéria → fora do P/R/F1 de matéria, reportado à parte
+    n_nc <- sum(d$true_materia %in% "nao_consta"); n_mat <- sum(!is.na(d$true_materia))
+    s_mat <- field_section(d$materia, if_else(d$true_materia %in% "nao_consta", NA_character_, d$true_materia), "Matéria (família TPU × leitura do texto; sem `nao_consta`)", d$w)
     uf_known <- d |> filter(!is.na(true_origem_uf), true_origem_uf != "NAO_CONSTA")
     uf_cov <- mean(!is.na(uf_known$pred_origem_uf)); uf_acc <- mean(uf_known$pred_origem_uf == uf_known$true_origem_uf, na.rm = TRUE)
-    out <- c(out, s_out$lines, s_men$lines, s_mat$lines,
+    out <- c(out, s_out$lines, s_men$lines,
+             sprintf("- Matéria não identificável pelo texto (`nao_consta`, Q13): %d de %d documentos com matéria anotada (%s); excluídos da métrica de matéria abaixo.",
+                     n_nc, n_mat, fmt3(if (n_mat) n_nc / n_mat else NA)), "", s_mat$lines,
              sprintf("### Tribunal/UF de origem — %d documentos com origem identificável pelo anotador; cobertura do extrator %s; acerto quando extraído %s", nrow(uf_known), fmt3(uf_cov), fmt3(uf_acc)), "")
     stg <- c(pedido = "valor_pedido", origem_sentenca = "valor_sentenca", origem_acordao = "valor_acordao_origem", stj = "valor_stj")
     vt <- map_dfr(names(stg), function(st) {
@@ -140,6 +146,23 @@ for (ini in intersect(names(f_rdoc), names(f_doc))) {
                                        materia = lab("true_materia"), incluir = bol("true_incluir"), valor_sentenca = val("true_valor_sentenca"),
                                        valor_acordao_origem = val("true_valor_acordao_origem"), valor_stj = val("true_valor_stj")),
                             sprintf("Documentos — anotador %s (%d documentos)", ini, nrow(j))))
+}
+
+# --- E. pré-anotação por IA (Q10): taxa de alteração IA → final --------------------------------------------------------
+ia_rows <- list()
+for (kind in c("valores", "documentos")) {
+  f_fin <- if (kind == "valores") f_val else f_doc
+  for (ini in names(f_fin)) {
+    f_ia <- file.path(ann_dir, sprintf("w3_%s_%s_IA.csv", kind, ini)); if (!file.exists(f_ia)) next
+    ia_rows[[length(ia_rows) + 1]] <- ia_change_rate(read_annotation_csv(f_ia), read_annotation_csv(f_fin[[ini]]), kind, tol = tol) |>
+      mutate(planilha = kind, anotador = ini, .before = 1)
+  }
+}
+if (length(ia_rows)) {
+  ia_tab <- bind_rows(ia_rows) |> mutate(n = as.integer(n), alterados = as.integer(alterados))
+  out <- c(out, "## E. Pré-anotação por IA — taxa de alteração pelo pesquisador (Q10)", "",
+           "Desenho \"IA sugere, pesquisador decide\" (decisions_log, 02/10/2026): `n` = linhas com o campo preenchido na versão final; `alterados` = linhas em que o rótulo final difere da sugestão da IA (valores comparados como conjuntos, com a tolerância acima). A re-anotação cega (seção C) é feita sem sugestões e mede a ancoragem.", "",
+           md_table(ia_tab), "")
 }
 
 # --- D. piloto (legado: template do scripts/03 com pred_* na própria planilha) -------------------------------------
