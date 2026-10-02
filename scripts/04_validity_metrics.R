@@ -69,7 +69,7 @@ if (length(f_val)) {
       n = c(s_cat$n, s_cat$n, s_stg$n, s_stg_dm$n, s_prec$n), f1 = c(s_cat$macro$f1, s_cat$focus_f1, s_stg$macro$f1, s_stg_dm$macro$f1, s_prec$macro$f1),
       ic95 = c(sprintf("%s–%s", fmt3(s_cat$ci[["lo"]]), fmt3(s_cat$ci[["hi"]])), "—", sprintf("%s–%s", fmt3(s_stg$ci[["lo"]]), fmt3(s_stg$ci[["hi"]])),
                sprintf("%s–%s", fmt3(s_stg_dm$ci[["lo"]]), fmt3(s_stg_dm$ci[["hi"]])), sprintf("%s–%s", fmt3(s_prec$ci[["lo"]]), fmt3(s_prec$ci[["hi"]]))),
-      meta = c(GATES[["category"]], GATES[["category"]], GATES[["stage"]], GATES[["stage"]], GATES[["in_precedent"]]))
+      meta = c(NA_real_, GATES[["category"]], NA_real_, GATES[["stage"]], GATES[["in_precedent"]]))   # Q1 (02/10): vale a classe dano_moral; macro é informativo
     for (s in list(list("Category", s_cat), list("Stage", s_stg), list("Direction", s_dir), list("In precedent", s_prec)))
       tex_rows <- c(tex_rows, sprintf("%s & %d & %.3f & %.3f & %.3f & %.3f \\\\", s[[1]], s[[2]]$n, s[[2]]$acc, s[[2]]$macro$precision, s[[2]]$macro$recall, s[[2]]$macro$f1))
   }
@@ -157,7 +157,7 @@ if (length(gate_rows)) {
   g <- bind_rows(gate_rows) |> mutate(situacao = case_when(is.na(meta) ~ "informativo", is.na(f1) ~ "sem dados",
                                                            f1 >= meta ~ "atingido", TRUE ~ "NÃO atingido"))
   out <- append(out, c("## Gate da Semana 3 (resumo)", "",
-    "Metas de docs/04 e docs/05: F1 ≥ 0,90 em categoria, ≥ 0,85 em estágio, ≥ 0,90 em in_precedent. Qual leitura do F1 vale para o gate (macro sobre todas as classes ou só a classe `dano_moral`/estágio dos candidatos de dano moral) é **decisão do pesquisador** — as duas são mostradas.", "",
+    "Metas de docs/04 e docs/05: F1 ≥ 0,90 em categoria, ≥ 0,85 em estágio, ≥ 0,90 em in_precedent. Leitura do gate decidida pelo pesquisador em 02/10/2026 (Q1): vale o F1 da classe `dano_moral` na categoria e o estágio dos candidatos de dano moral verdadeiro; o macro-F1 sobre todas as classes é reportado como informativo.", "",
     md_table(g |> mutate(n = as.integer(n))), "", "Nada da semana 5 em diante começa antes de o pesquisador declarar o gate atendido (docs/04).", ""), after = 5)
 }
 dir.create(file.path(root, "docs"), showWarnings = FALSE)
