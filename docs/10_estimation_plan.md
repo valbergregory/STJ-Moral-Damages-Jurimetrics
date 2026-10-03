@@ -1,4 +1,4 @@
-# 10 — Plano de estimação (v0.1, proposta para aprovação do pesquisador, 03/10/2026)
+# 10 — Plano de estimação (v1.0, **aprovado pelo pesquisador em 03/10/2026** com as propostas do §9)
 
 Plano de análise pré-especificado para as Semanas 4–8 (docs/04). **Nenhuma estimação foi rodada.** Nada aqui é
 resultado; números de N citados vêm de docs/06 e docs/08 e serão substituídos pelos do dataset congelado. Este
@@ -123,16 +123,17 @@ A extração é automática; o erro é medido (G1) e **propagado**, não ignorad
   data; modelos exploratórios ficam em seção separada ("exploratório") e não alimentam o texto principal sem essa
   marcação.
 
-## 9. Decisões abertas (do pesquisador)
-1. **Mês-base do deflator** (dez/2025 proposto) e série (IPCA cheio; alternativa INPC).
-2. **Resposta principal:** `valor_acordao_origem` (proposto) ou `valor_stj` quando alterado; ou ambos como RQs
-   separadas.
-3. **Software bayesiano:** `brms` (exige Rtools/Stan na máquina do Valber) ou `lme4/glmmTMB` como principal.
-4. **RQ4 com N pequeno:** aceita o plano de cair para análise descritiva se < 10 eventos por covariável?
-5. **Tema 1365:** manter como estudo de caso (proposto) ou retirar se a janela pós-evento ficar curta.
-6. **Escopo de RQ6:** modelo preditivo no corpo do artigo ou em apêndice (risco de leitura como "calculadora de
-   indenização").
-7. **Pessoa jurídica autora:** excluir (proposto como padrão, docs/02 manda sinalizar) ou manter com `autor_pj`.
+## 9. Decisões do pesquisador (03/10/2026: "Aprovo o plano com as propostas do §9")
+| # | Decisão | Valor adotado |
+|---|---|---|
+| 1 | Deflator | IPCA (SIDRA 1737), **mês-base dez/2025**; INPC só em robustez |
+| 2 | Resposta principal | `valor_acordao_origem`; `valor_stj` quando alterado, como análise secundária |
+| 3 | Software bayesiano | `brms` (Stan) como principal **se o toolchain compilar** (teste no `10_feasibility.R`); fallback `lme4`/`glmmTMB` (§4) |
+| 4 | RQ4 com N pequeno | **aceito** cair para análise descritiva se < 10 eventos por covariável |
+| 5 | Tema 1365 | **mantido** como estudo de caso (conferir data e tese na fonte antes de usar) |
+| 6 | Escopo da RQ6 | modelo preditivo com as salvaguardas do §7 (não é ferramenta de arbitramento); **posição no artigo (corpo × apêndice) a fechar quando a RQ6 rodar** |
+| 7 | Pessoa jurídica autora | **excluída** da análise principal; `autor_pj` em robustez |
+Qualquer mudança posterior de especificação vira linha no `decisions_log` (§8, congelamento).
 
 ## 10. Entregáveis e scripts previstos
 | Arquivo | Conteúdo | Semana |
@@ -145,5 +146,5 @@ A extração é automática; o erro é medido (G1) e **propagado**, não ignorad
 | `scripts/16_predictive_conformal.R` | RQ6 | 8 |
 | `scripts/17_robustness.R` | §8 | 9 |
 | `tests/testthat/test-awards_rules.R` etc. | regras com fixtures sintéticas | cada semana |
-Os scripts só nascem **depois da aprovação deste plano e do G1**; o código é escrito e testado em fixtures
+Os scripts podem ser escritos e testados em fixtures sintéticas agora (plano aprovado); **rodar sobre dados reais só após o G1**; o código é escrito e testado em fixtures
 sintéticas (os dados reais só existem na máquina do autor).
