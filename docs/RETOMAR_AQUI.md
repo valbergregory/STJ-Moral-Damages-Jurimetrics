@@ -52,7 +52,19 @@ escritos em fixtures sintéticas; **rodar sobre dados reais só após o G1** (`d
 - Q18 aprovada. 15 valores de baixa confiança decididos (planilha `w3_valores_VG.csv` entregue ao
   autor, marca `VG (aprovado 03/10)`), exceto **V030** (Q11: conferir número do processo em
   221946948.txt) e **V199** (12 mil: sentença ou acórdão? 292169222.txt) — dependem do texto.
-- Próximo: os 8 erros do extrator (V051, V125, V234, V267, V277, V118, V293, V172).
+- Feito: os 8 erros do extrator (ver ATENÇÃO abaixo). Próximo: Q11/Q12 e depois média/alta.
+
+## ATENÇÃO — extrator corrigido com base na própria amostra de validação (anotado em 03/10)
+- O commit `cac0dcb` (outra sessão) corrigiu o extrator a partir dos erros achados **nos itens da amostra
+  da Semana 3** (V051, V125, V234, V267, V277, V118, V293, V172). Pela regra já registrada em
+  COMO_ANOTAR.md §7, as métricas desses mesmos itens deixam de validar o extrator **novo**.
+- Leitura correta: a planilha da Semana 3 valida o extrator **antigo** (as chaves `w3_chave_*` foram
+  congeladas no sorteio; a reextração não as altera). Os 8 itens ficam com `true_valor_correto = nao`.
+- O extrator novo precisa de uma **amostra nova e menor**, com outra semente, depois da reextração
+  (`08_annotation_sample.R --seed=<nova>`), antes de usar os valores no plano de estimação (G1).
+- Os 8 itens foram revisados em 03/10 (planilha do autor, fora do Git): rótulos da IA mantidos; V118
+  com direção `aumento` (sentença improcedente → TJ condenou), a confirmar pelo autor.
+- Duas sessões do Claude escreveram neste repositório no mesmo dia: usar **uma sessão por vez**.
 
 ## PENDENTE (trabalho do autor)
 0. `git pull`, rodar `Rscript scripts/07_ingest_texts.R` e conferir V051, V118, V125, V172, V234, V267, V277, V293
