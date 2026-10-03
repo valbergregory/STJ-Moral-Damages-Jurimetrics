@@ -34,6 +34,11 @@
 - Testes de regressão em `tests/testthat/test-extract_money.R` (174 passam). Rodar com `LC_ALL=C.UTF-8` fora do Windows.
 - **Ainda não reextraído:** o banco e as planilhas do autor refletem o extrator antigo.
 
+## Plano de estimação (03/10) — `docs/10_estimation_plan.md`
+Proposta v0.1 para as Semanas 4–8, sem estimação rodada. **Aguarda aprovação** e as 7 decisões abertas do §9
+(mês-base do deflator, resposta principal, `brms` × `lme4`, RQ4 descritiva se N pequeno, Tema 1365, escopo da RQ6,
+pessoa jurídica). Os scripts 10–17 só serão escritos depois da aprovação e do gate G1 (relatório de validade).
+
 ## PENDENTE (trabalho do autor)
 0. `git pull`, rodar `Rscript scripts/07_ingest_texts.R` e conferir V051, V118, V125, V172, V234, V267, V277, V293
    (se algum seguir errado, mandar o trecho do texto). A reextração muda os valores candidatos: se a revisão das
