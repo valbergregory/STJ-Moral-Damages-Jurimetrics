@@ -48,6 +48,14 @@ escritos em fixtures sintéticas; **rodar sobre dados reais só após o G1** (`d
 - Lacunas conhecidas: `autor_pj` não é extraído (PJ não é excluída ainda); a data de fixação na origem não é extraída
   (deflação usa a publicação do STJ); limiares de viabilidade `min_month_n`, `min_court_n` etc. são propostos.
 
+## Em andamento (03/10)
+- Revisão dos 15 valores de baixa confiança discutida na conversa: sugestões de mudança em V084
+  (stj/manutencao), V243 e V253 (in_precedent = nao), V251 (direção reducao, conferir); conferir
+  V030 (Q11, número do processo), V199 (sentença ou acórdão). Demais: concordância com a IA.
+- **Proposta Q18 (aguarda decisão do autor):** valor de outro processo (mesmo não sendo precedente;
+  ex.: V065, V179) → `in_precedent = sim`, estágio/direção `indeterminado`, nota "outro processo".
+- Próximo: os 8 erros do extrator (V051, V125, V234, V267, V277, V118, V293, V172).
+
 ## PENDENTE (trabalho do autor)
 0. `git pull`, rodar `Rscript scripts/07_ingest_texts.R` e conferir V051, V118, V125, V172, V234, V267, V277, V293
    (se algum seguir errado, mandar o trecho do texto). A reextração muda os valores candidatos: se a revisão das
