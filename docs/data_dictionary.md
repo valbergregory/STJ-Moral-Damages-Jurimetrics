@@ -57,3 +57,19 @@
 | `w3_chave_valores.csv` / `w3_chave_documentos.csv` | `item_id` | `seq_documento`, `stratum`, `N_h`, `n_h`, `w = N_h/n_h` (peso de desenho), predições `pred_*` do extrator v0.2 |
 | `w3_chave_reanotacao_*.csv` | `item_id_reanot` → `item_id` | ligação re-anotação → 1ª passada |
 Códigos e regras de preenchimento: `docs/COMO_ANOTAR.md`.
+
+## Eventos decisórios (`build_award_events()` em `R/awards_rules.R`; destino `stg.award_events`)
+Uma linha por documento (`event_k = 1`). Regras: docs/02 (consistência) e docs/10 §1.
+| Campo | Significado |
+|---|---|
+| `valor_pedido`, `valor_sentenca`, `valor_acordao_origem`, `valor_stj` | único valor de dano moral elegível no estágio (BRL, fora de precedente/referência/extenso divergente); NA se ausente ou se houver ≥ 2 valores distintos (regra 4) |
+| `valor_stj_efetivo` | `valor_stj`; se vazio e resultado `mantido`/`mantido_sumula7`, o valor de origem (regra 5). `valor_stj` continua vazio sob Súmula 7 (convenção Q1–Q9) |
+| `*_real` | valor deflacionado (IPCA, mês-base `attr(, "deflator")`); referência = data de publicação do STJ (limitação declarada) |
+| `alterou_stj` | resultado ∈ {majorado_stj, reduzido_stj} |
+| `ambiguo`, `motivos_ambiguidade` | regras 1, 2, 4, 5 e resultado a verificar; separados por `;` |
+| `incluir`, `motivo_exclusao` | sem valor de decisão → `sem_valor_estagio` / `so_precedente` / `salario_minimo_sem_conversao`; cifra × extenso divergente → `extenso_divergente` (mesmo vocabulário da anotação) |
+| `evento_primario` | 1º documento incluído de cada `numero_registro` (por data de publicação) |
+| `origem_uf`, `origem_conhecida` | de `stg.doc_origin` (ou da anotação, se revisado) |
+| `per_capita`, `n_vitimas`, `autor_pj` | `per_capita` do extrator; `n_vitimas` só vem da revisão; **`autor_pj` ainda não é extraído** (NA) |
+| `fonte_valores` | `automatico` \| `revisado` (`apply_reviewed()`) |
+| População de análise | `incluir ∧ evento_primario ∧ ¬ambiguo ∧ resposta presente ∧ ¬autor_pj` (`analysis_population()`) |

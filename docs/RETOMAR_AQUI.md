@@ -39,6 +39,15 @@ Decisões do §9 adotadas (deflator dez/2025, resposta `valor_acordao_origem`, `
 pequeno, Tema 1365 mantido, PJ excluída). Em aberto só a posição da RQ6 (corpo × apêndice). Scripts 10–17 podem ser
 escritos em fixtures sintéticas; **rodar sobre dados reais só após o G1** (`docs/07_extraction_validity.md`).
 
+## Código novo (03/10) — base da Semana 4, ainda sem dados reais
+- `R/awards_rules.R`: regras de consistência (docs/02), `award_events`, revisão sobreposta, deflação IPCA, atrito.
+- `R/feasibility.R` + `scripts/10_feasibility.R`: gate G4 (contagens por modelo, ambiente R, teste do Stan opcional).
+  Gera `docs/10a_feasibility_report.md` (só contagens). Rodar na sua máquina: `Rscript scripts/10_feasibility.R --stan-test`.
+- Testes sintéticos (261 passam). Não pude rodar o script contra o banco (sem `duckdb` aqui): validei a cadeia
+  texto → extrator → eventos → relatório com dados sintéticos; o trecho de leitura do DuckDB só roda na sua máquina.
+- Lacunas conhecidas: `autor_pj` não é extraído (PJ não é excluída ainda); a data de fixação na origem não é extraída
+  (deflação usa a publicação do STJ); limiares de viabilidade `min_month_n`, `min_court_n` etc. são propostos.
+
 ## PENDENTE (trabalho do autor)
 0. `git pull`, rodar `Rscript scripts/07_ingest_texts.R` e conferir V051, V118, V125, V172, V234, V267, V277, V293
    (se algum seguir errado, mandar o trecho do texto). A reextração muda os valores candidatos: se a revisão das
