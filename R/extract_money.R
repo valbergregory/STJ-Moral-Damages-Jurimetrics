@@ -36,6 +36,7 @@ normalize_text <- function(x) {
 words_to_number <- function(s) {
   s <- stri_trans_tolower(s)
   s <- stri_replace_all_regex(s, "\\bde\\b", " ")
+  s <- stri_replace_all_fixed(s, ",", " ")
   w <- stri_split_regex(s, "[\\s\\-]+", omit_empty = TRUE)[[1]]
   total <- 0; cur <- 0; seen <- FALSE
   for (t in w) {
@@ -61,11 +62,24 @@ parse_brl <- function(s) {
   suppressWarnings(as.numeric(stri_replace_all_fixed(s, ".", "")))
 }
 
+# "R$ 20 mil" / "R$ 1,5 milhão": o número antes da escala é multiplicado (sem isso o extrator lia R$ 20,00)
+.re_scale_tail <- "\\s?(?:milh[aã]o|milh[oõ]es|mil)\\s*$"
+parse_brl_scaled <- function(raw) {
+  tail <- stri_extract_first_regex(raw, .re_scale_tail, case_insensitive = TRUE)
+  if (is.na(tail)) return(parse_brl(raw))
+  num <- stri_replace_first_regex(raw, .re_scale_tail, "", case_insensitive = TRUE)
+  body <- stri_replace_all_regex(num, "[^0-9,\\.]", "")
+  base <- if (stri_detect_regex(body, "^\\d+\\.\\d{1,2}$")) as.numeric(body) else parse_brl(num)
+  base * if (stri_detect_regex(tail, "(?i)milh")) 1e6 else 1e3
+}
+
 # --- padrões de valor -------------------------------------------------------
-.re_currency <- "R\\$\\s?(\\d{1,3}(?:\\.\\d{3})+(?:,\\d{1,2})?|\\d+(?:,\\d{1,2})?)"
+.re_currency <- "R\\$\\s?(\\d{1,3}(?:\\.\\d{3})+(?:,\\d{1,2})?|\\d+(?:,\\d{1,2})?)(?:\\s?(?:milh[aã]o|milh[oõ]es|mil)\\b)?"
 .re_scaled   <- "(?<![\\d,\\.])(\\d{1,3}(?:[\\.,]\\d{1,3})?)\\s?(mil|milh[aã]o|milh[oõ]es)\\s?(?:de\\s?)?reais"
-.re_words    <- paste0("\\b((?:", .pt_words_regex, "\\s?){1,14})\\s?reais\\b")
-.re_salmin   <- "(\\d{1,4}|[a-zçãõáéíóúê]+)\\s?\\(?[^()\\n]{0,30}?\\)?\\s?sal[áa]rios?[\\s-]?m[íi]nimos?"
+.re_words    <- paste0("\\b((?:", .pt_words_regex, ",?\\s?){1,14})\\s?reais\\b")
+# quantidade: 2 / 2,5 / dois / dois e meio, com parêntese opcional "(dez)"; a quantidade é o grupo 1
+.re_salmin   <- paste0("(?<![\\w,\\.])(\\d{1,4}(?:,\\d{1,2})?|", .pt_words_regex, "(?:\\s+", .pt_words_regex, ")*(?:\\s+e\\s+meio)?)",
+                       "\\s?(?:\\([^()\\n]{0,40}\\)\\s?)?sal[áa]rios?[\\s-]?m[íi]nimos?")
 
 find_amounts <- function(text) {
   out <- list()
@@ -73,7 +87,7 @@ find_amounts <- function(text) {
   if (nrow(m)) {
     raw <- stri_sub(text, m[, 1], m[, 2])
     out[[1]] <- tibble(start = m[, 1], end = m[, 2], raw = raw, unit = "BRL", form = "cifra",
-                       value = map_dbl(raw, parse_brl))
+                       value = map_dbl(raw, parse_brl_scaled))
   }
   m <- stri_locate_all_regex(text, .re_scaled, omit_no_match = TRUE, case_insensitive = TRUE)[[1]]
   if (nrow(m)) {
@@ -92,10 +106,13 @@ find_amounts <- function(text) {
   m <- stri_locate_all_regex(text, .re_salmin, omit_no_match = TRUE, case_insensitive = TRUE)[[1]]
   if (nrow(m)) {
     raw <- stri_sub(text, m[, 1], m[, 2])
-    tok <- stri_extract_first_regex(raw, "^[^\\s(]+")
-    val <- suppressWarnings(as.numeric(tok))
-    wv <- map_dbl(tok, ~ words_to_number(.x))
-    val <- ifelse(is.na(val), wv, val)
+    tok <- stri_match_first_regex(raw, .re_salmin, case_insensitive = TRUE)[, 2]
+    val <- map_dbl(tok, function(x) {
+      if (stri_detect_regex(x, "^\\d")) return(as.numeric(stri_replace_first_fixed(x, ",", ".")))
+      half <- stri_detect_regex(x, "(?i)\\se\\s+meio$")
+      v <- words_to_number(stri_replace_first_regex(x, "(?i)\\s+e\\s+meio$", ""))
+      if (half) v + 0.5 else v
+    })
     out[[4]] <- tibble(start = m[, 1], end = m[, 2], raw = raw, unit = "SM", form = "salario_minimo", value = val) |>
       filter(!is.na(value))
   }

@@ -35,3 +35,27 @@ test_that("stj_quantum_outcome detects reduction in dispositive", {
   t <- "Trata-se de recurso sobre danos morais. O valor é exorbitante. Ante o exposto, dou parcial provimento ao recurso especial para reduzir a indenização por danos morais para R$ 10.000,00."
   expect_equal(stj_quantum_outcome(t)$outcome, "reduzido_stj")
 })
+
+test_that("R$ com escala (mil / milhão) é multiplicado, não lido como R$ X,00", {
+  expect_equal(find_amounts("fixou em R$ 20 mil a título de danos morais")$value, 20000)
+  expect_equal(find_amounts("arbitrou R$ 1,5 milhão de indenização")$value, 1.5e6)
+  expect_equal(find_amounts("R$ 2 milhões")$value, 2e6)
+  expect_equal(find_amounts("R$ 20.000,00")$value, 20000)
+  a <- find_amounts("condenou em R$ 5 mil (cinco mil reais)")
+  expect_equal(nrow(a), 1); expect_equal(a$value, 5000)
+  expect_true(a$extenso_parenthetical); expect_false(a$extenso_mismatch)
+})
+
+test_that("extenso com vírgula entre os termos não é lido só pela cauda", {
+  expect_equal(find_amounts("fixada em trinta mil, duzentos e cinquenta reais")$value, 30250)
+  expect_equal(find_amounts("dez mil e quinhentos reais")$value, 10500)
+})
+
+test_that("salário mínimo: decimais, 'e meio' e quantidade não confundida com palavra anterior", {
+  expect_equal(find_amounts("fixou 2,5 salários mínimos")$value, 2.5)
+  expect_equal(find_amounts("fixou em 2,5 (dois e meio) salários mínimos")$value, 2.5)
+  expect_equal(find_amounts("fixou dois e meio salários mínimos")$value, 2.5)
+  expect_equal(find_amounts("10 (dez) salários mínimos")$value, 10)
+  expect_equal(find_amounts("fixou dez salários mínimos")$value, 10)
+  expect_equal(find_amounts("fixou dez salários mínimos")$unit, "SM")
+})
