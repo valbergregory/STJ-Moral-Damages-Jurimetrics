@@ -202,6 +202,7 @@ magistrado. `docs/07` e `logs/annotation_sample.log` só têm contagens e podem 
 | Q15 | **Dano moral só em precedente citado**: `true_menciona_dano_moral = sim` (vale a literalidade) e `true_resultado_stj = sem_dano_moral`. |
 | Q16 | **Provimento parcial alheio ao valor do DM** (só multa, honorários, juros etc.): `nao_provido_sem_quantum`. |
 | Q17 | **Valor pedido na apelação** também é `pedido` (amplia a Q2); registrar "pedido na apelação" na `nota`. |
+| Q18 | **Valor de outro processo que não é precedente** (ex.: outra ação da mesma parte, acordo homologado em outra demanda): `true_in_precedent = sim`, estágio e direção `indeterminado`, `nota` "outro processo, não precedente". Motivo: `in_precedent` separa valores que não pertencem a este caso. |
 
 Texto original das perguntas (mantido para registro):
 

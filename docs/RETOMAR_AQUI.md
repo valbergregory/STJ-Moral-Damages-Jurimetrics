@@ -49,11 +49,9 @@ escritos em fixtures sintéticas; **rodar sobre dados reais só após o G1** (`d
   (deflação usa a publicação do STJ); limiares de viabilidade `min_month_n`, `min_court_n` etc. são propostos.
 
 ## Em andamento (03/10)
-- Revisão dos 15 valores de baixa confiança discutida na conversa: sugestões de mudança em V084
-  (stj/manutencao), V243 e V253 (in_precedent = nao), V251 (direção reducao, conferir); conferir
-  V030 (Q11, número do processo), V199 (sentença ou acórdão). Demais: concordância com a IA.
-- **Proposta Q18 (aguarda decisão do autor):** valor de outro processo (mesmo não sendo precedente;
-  ex.: V065, V179) → `in_precedent = sim`, estágio/direção `indeterminado`, nota "outro processo".
+- Q18 aprovada. 15 valores de baixa confiança decididos (planilha `w3_valores_VG.csv` entregue ao
+  autor, marca `VG (aprovado 03/10)`), exceto **V030** (Q11: conferir número do processo em
+  221946948.txt) e **V199** (12 mil: sentença ou acórdão? 292169222.txt) — dependem do texto.
 - Próximo: os 8 erros do extrator (V051, V125, V234, V267, V277, V118, V293, V172).
 
 ## PENDENTE (trabalho do autor)
