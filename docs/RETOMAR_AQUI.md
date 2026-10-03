@@ -10,20 +10,12 @@
 2. Q1–Q9 da anotação decididas (COMO_ANOTAR.md §9; gate = F1 da classe dano_moral).
 3. Sorteio da Semana 3 rodado: 300 valores (53 estratos) + 150 documentos (70 estratos) + re-anotação 45+25;
    425 textos em `data/annotations/w3_textos/`. Correção do `on.exit` no `08_annotation_sample.R`.
-4. **Pré-anotação por IA dos 300 valores** entregue ao autor fora do repositório
-   (`w3_valores_VG_preanotado_IA.csv`; nota `IA[alta|media|baixa]: ...`). Achado: o extrator lê
-   "R$ X mil" como R$ X,00 (V051, V125, V234, V267, V277) e erra extensos parciais (V118, V293) e
-   "2,5 salários" (V172).
+4. Convenções de anotação Q11–Q18 decididas pelo pesquisador (COMO_ANOTAR.md §9); verificador
+   `scripts/09_check_annotation.R` e vocabulário único `R/annotation_vocab.R`.
 
-## Decidido em 02/10 (tarde)
-- Desenho "IA sugere, pesquisador decide" **aprovado** (COMO_ANOTAR.md Q10); convenções Q11 (ementa repetida) e
-  Q12 (DM após sentença improcedente → `aumento`) **adotadas**.
-
-## Decidido/feito em 02/10 (noite)
-- Q13–Q17 aprovadas (COMO_ANOTAR.md §9). Implementado em R: `R/annotation_vocab.R`, `scripts/09_check_annotation.R`,
-  `04_validity_metrics.R` (Q13 + seção E, taxa IA → final), testes. Protocolo da IA: `docs/ia_preanotacao_protocolo.md`.
-- Pré-anotação dos documentos D001–D150 entregue ao autor (fora do Git): `w3_documentos_VG_preanotado_IA.csv`,
-  harmonizada por Q13–Q17, 0 erro no verificador; 8 de confiança baixa (D023, D024, D065, D078, D080, D090, D110, D129).
+## Decidido em 03/10 — anotação integralmente manual
+- A pré-anotação automática (Q10) foi **revogada antes de qualquer uso**. A anotação é do pesquisador, a partir
+  das planilhas em branco do sorteio; qualquer planilha com sugestões deve ser apagada da pasta `data/annotations/`.
 
 ## Feito em 03/10 — correção do extrator (`R/extract_money.R`, commit `cac0dcb`)
 - "R$ 20 mil" / "R$ 1,5 milhão" agora são multiplicados (antes lidos como R$ 20,00 / 1,50): V051, V125, V234, V267, V277.
@@ -48,32 +40,23 @@ escritos em fixtures sintéticas; **rodar sobre dados reais só após o G1** (`d
 - Lacunas conhecidas: `autor_pj` não é extraído (PJ não é excluída ainda); a data de fixação na origem não é extraída
   (deflação usa a publicação do STJ); limiares de viabilidade `min_month_n`, `min_court_n` etc. são propostos.
 
-## Em andamento (03/10)
-- Q18 aprovada. 15 valores de baixa confiança decididos (planilha `w3_valores_VG.csv` entregue ao
-  autor, marca `VG (aprovado 03/10)`), exceto **V030** (Q11: conferir número do processo em
-  221946948.txt) e **V199** (12 mil: sentença ou acórdão? 292169222.txt) — dependem do texto.
-- Feito: os 8 erros do extrator (ver ATENÇÃO abaixo). Próximo: Q11/Q12 e depois média/alta.
-
 ## ATENÇÃO — extrator corrigido com base na própria amostra de validação (anotado em 03/10)
 - O commit `cac0dcb` (outra sessão) corrigiu o extrator a partir dos erros achados **nos itens da amostra
   da Semana 3** (V051, V125, V234, V267, V277, V118, V293, V172). Pela regra já registrada em
   COMO_ANOTAR.md §7, as métricas desses mesmos itens deixam de validar o extrator **novo**.
 - Leitura correta: a planilha da Semana 3 valida o extrator **antigo** (as chaves `w3_chave_*` foram
-  congeladas no sorteio; a reextração não as altera). Os 8 itens ficam com `true_valor_correto = nao`.
+  congeladas no sorteio; a reextração não as altera).
 - O extrator novo precisa de uma **amostra nova e menor**, com outra semente, depois da reextração
   (`08_annotation_sample.R --seed=<nova>`), antes de usar os valores no plano de estimação (G1).
-- Os 8 itens foram revisados em 03/10 (planilha do autor, fora do Git): rótulos da IA mantidos; V118
-  com direção `aumento` (sentença improcedente → TJ condenou), a confirmar pelo autor.
 - Duas sessões do Claude escreveram neste repositório no mesmo dia: usar **uma sessão por vez**.
 
 ## PENDENTE (trabalho do autor)
-0. `git pull`, rodar `Rscript scripts/07_ingest_texts.R` e conferir V051, V118, V125, V172, V234, V267, V277, V293
-   (se algum seguir errado, mandar o trecho do texto). A reextração muda os valores candidatos: se a revisão das
-   planilhas já começou, comparar a coluna lida pelo extrator antes de seguir.
-1. Salvar as planilhas da IA intocadas como `data/annotations/w3_valores_VG_IA.csv` e `w3_documentos_VG_IA.csv`;
-   trabalhar nas cópias `w3_valores_VG.csv` e `w3_documentos_VG.csv`.
-2. Revisar valores (15 baixa → 8 erros do extrator → Q11/Q12 → média → alta) e documentos (8 baixa → linhas com
-   "Q14 ... conferir" → DÚVIDA → resto).
-3. Ao fim de cada sessão: `Rscript scripts/09_check_annotation.R`.
-4. `Rscript scripts/04_validity_metrics.R` → `docs/07_extraction_validity.md` (gate da Semana 3 + seção E).
-5. Re-anotação cega (45 + 25) ≥ 7 dias após a revisão, sem sugestões.
+0. `git pull`. Apagar de `data/annotations/` qualquer planilha com sugestões (`*_IA.csv`, `*_preanotado*`) e a
+   cópia de trabalho derivada delas (`w3_valores_VG.csv` / `w3_documentos_VG.csv`, se existirem).
+1. Copiar `w3_modelo_valores.csv` → `w3_valores_VG.csv` e `w3_modelo_documentos.csv` → `w3_documentos_VG.csv`
+   e anotar do zero (COMO_ANOTAR.md §§4–5 e §9).
+2. Ao fim de cada sessão: `Rscript scripts/09_check_annotation.R`.
+3. `Rscript scripts/04_validity_metrics.R` → `docs/07_extraction_validity.md` (gate da Semana 3; valida o extrator
+   antigo — ver ATENÇÃO).
+4. Re-anotação cega (45 + 25) ≥ 7 dias após a 1ª passada.
+5. Amostra nova (outra semente) para validar o extrator corrigido, antes do G1.

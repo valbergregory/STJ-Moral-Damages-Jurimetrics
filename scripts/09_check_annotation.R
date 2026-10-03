@@ -10,7 +10,7 @@ source(file.path(root, "R/validity_metrics.R")); source(file.path(root, "R/annot
 opt <- function(name, default) { v <- args[startsWith(args, paste0("--", name, "="))]; if (length(v)) sub("^--[^=]+=", "", v[1]) else default }
 ann_dir <- opt("dir", file.path(root, "data/annotations")); options(width = 200)
 
-files <- list.files(ann_dir, "^w3_(reanotacao_)?(valores|documentos)_[A-Za-z]+(_IA)?\\.csv$", full.names = TRUE)
+files <- list.files(ann_dir, "^w3_(reanotacao_)?(valores|documentos)_[A-Za-z]+\\.csv$", full.names = TRUE)
 if (!length(files)) stop("Nenhuma planilha w3_valores_<INI>.csv / w3_documentos_<INI>.csv em ", ann_dir, ". Veja docs/COMO_ANOTAR.md.")
 n_err <- 0L
 for (f in files) {

@@ -55,15 +55,3 @@ test_that("amount sheet: Q9 forbids stage/direction inside a cited precedent", {
   expect_match(rules(tibble(item_id = "V1", true_valor_correto = "talvez", true_category = "", true_stage = "", true_direction = "",
                             true_in_precedent = "", true_reference_value = ""), "valores"), "vocabulário")
 })
-
-test_that("ia_change_rate counts the researcher's changes field by field (Q10)", {
-  ia <- bind_rows(doc_row(item_id = "D1", true_materia = "outra", true_valor_sentenca = "5.000,00", true_origem_uf = "SP"),
-                  doc_row(item_id = "D2", true_materia = "negativacao", true_valor_sentenca = "", true_origem_uf = "MG"))
-  fin <- bind_rows(doc_row(item_id = "D1", true_materia = "nao_consta", true_valor_sentenca = "5000", true_origem_uf = "sp"),
-                   doc_row(item_id = "D2", true_materia = "negativacao", true_valor_sentenca = "3000", true_origem_uf = ""))
-  r <- ia_change_rate(ia, fin, "documentos")
-  expect_equal(r$alterados[r$campo == "true_materia"], 1); expect_equal(r$taxa[r$campo == "true_materia"], 0.5)
-  expect_equal(r$alterados[r$campo == "true_valor_sentenca"], 1)        # "5.000,00" = "5000"; vazio → 3000 mudou
-  expect_equal(r$n[r$campo == "true_origem_uf"], 1); expect_equal(r$alterados[r$campo == "true_origem_uf"], 0)
-  expect_equal(r$n[r$campo == "true_incluir"], 0)                       # campo vazio na versão final não conta
-})

@@ -2,4 +2,3 @@ Fixtures SINTÉTICAS (inventadas para os testes; nenhum dado real do STJ, nenhum
 Imitam as saídas de scripts/08_annotation_sample.R (chaves) e as planilhas preenchidas pelo anotador "VG",
 inclusive uma salva pelo Excel pt-BR (ponto e vírgula, BOM, "não", "R$ 10.000,00"). Resultados esperados em
 tests/testthat/test-validity_metrics.R.
-w3_documentos_VG_IA.csv: "pré-anotação por IA" sintética (Q10) — difere da final em D001 (matéria) e D002 (valor STJ).

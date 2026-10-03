@@ -8,7 +8,6 @@
 #     w3_reanotacao_documentos_<INI>.csv   = re-anotação cega (+ w3_chave_reanotacao_documentos.csv)
 #   Piloto (legado, opcional): pilot_annotation_<INI>.csv (template do scripts/03 com pred_* e true_* na mesma planilha).
 #   Linhas sem rótulo verdadeiro são ignoradas campo a campo: dá para rodar com a anotação parcial.
-#   Pré-anotação por IA (Q10, opcional): w3_valores_<INI>_IA.csv e w3_documentos_<INI>_IA.csv intocados → taxa de alteração IA → final.
 #   Antes de rodar: Rscript scripts/09_check_annotation.R (vocabulário e coerência).
 # Saídas: docs/07_extraction_validity.md (só métricas agregadas, sem trechos) e outputs/overleaf/tables/extraction_validity.tex
 # Uso: Rscript scripts/04_validity_metrics.R [--dir=data/annotations] [--boot=1000] [--seed=20261002] [--tol=0.5]
@@ -146,23 +145,6 @@ for (ini in intersect(names(f_rdoc), names(f_doc))) {
                                        materia = lab("true_materia"), incluir = bol("true_incluir"), valor_sentenca = val("true_valor_sentenca"),
                                        valor_acordao_origem = val("true_valor_acordao_origem"), valor_stj = val("true_valor_stj")),
                             sprintf("Documentos — anotador %s (%d documentos)", ini, nrow(j))))
-}
-
-# --- E. pré-anotação por IA (Q10): taxa de alteração IA → final --------------------------------------------------------
-ia_rows <- list()
-for (kind in c("valores", "documentos")) {
-  f_fin <- if (kind == "valores") f_val else f_doc
-  for (ini in names(f_fin)) {
-    f_ia <- file.path(ann_dir, sprintf("w3_%s_%s_IA.csv", kind, ini)); if (!file.exists(f_ia)) next
-    ia_rows[[length(ia_rows) + 1]] <- ia_change_rate(read_annotation_csv(f_ia), read_annotation_csv(f_fin[[ini]]), kind, tol = tol) |>
-      mutate(planilha = kind, anotador = ini, .before = 1)
-  }
-}
-if (length(ia_rows)) {
-  ia_tab <- bind_rows(ia_rows) |> mutate(n = as.integer(n), alterados = as.integer(alterados))
-  out <- c(out, "## E. Pré-anotação por IA — taxa de alteração pelo pesquisador (Q10)", "",
-           "Desenho \"IA sugere, pesquisador decide\" (decisions_log, 02/10/2026): `n` = linhas com o campo preenchido na versão final; `alterados` = linhas em que o rótulo final difere da sugestão da IA (valores comparados como conjuntos, com a tolerância acima). A re-anotação cega (seção C) é feita sem sugestões e mede a ancoragem.", "",
-           md_table(ia_tab), "")
 }
 
 # --- D. piloto (legado: template do scripts/03 com pred_* na própria planilha) -------------------------------------

@@ -72,11 +72,8 @@ test_that("04_validity_metrics.R runs end-to-end on synthetic fixtures", {
   expect_true(any(grepl("| estagio | 4 | 0.750 | 0.375 | 0.600 |", md, fixed = TRUE)))
   expect_true(any(grepl("| resultado_stj | 2 | 0.500 |", md, fixed = TRUE)))
   expect_true(any(grepl("Gate da Semana 3", md)))
-  # Q13: nenhum `nao_consta` nos fixtures; Q10: a IA difere da final em 1 de 4 matérias e 1 de 4 valores STJ
+  # Q13: nenhum `nao_consta` nos fixtures
   expect_true(any(grepl("(`nao_consta`, Q13): 0 de 4 documentos", md, fixed = TRUE)))
-  expect_true(any(grepl("## E. Pré-anotação por IA", md, fixed = TRUE)))
-  expect_true(any(grepl("| documentos | VG | true_materia | 4 | 1 | 0.250 |", md, fixed = TRUE)))
-  expect_true(any(grepl("| documentos | VG | true_valor_stj | 4 | 1 | 0.250 |", md, fixed = TRUE)))
   expect_true(file.exists(file.path(tmp, "outputs", "overleaf", "tables", "extraction_validity.tex")))
 })
 

@@ -1,6 +1,6 @@
 # annotation_vocab.R — vocabulário único das planilhas de anotação da Semana 3 (docs/COMO_ANOTAR.md §4, §5 e §9) e
 # verificação de coerência linha a linha. Usado por scripts/09_check_annotation.R (antes das métricas) e por
-# scripts/04_validity_metrics.R (matéria `nao_consta`, taxa de alteração IA → final, Q10/Q13).
+# scripts/04_validity_metrics.R (matéria `nao_consta`, Q13).
 # Testado em tests/testthat/test-annotation_vocab.R. Depende de R/validity_metrics.R (norm_label, parse_*).
 
 BOOL_CODES <- c("sim", "nao")
@@ -89,26 +89,4 @@ annotation_progress <- function(d, kind = c("valores", "documentos")) {
   kind <- match.arg(kind); cols <- intersect(names(if (kind == "valores") VOCAB_VALORES else VOCAB_DOCUMENTOS), names(d))
   done <- if (length(cols)) Reduce(`|`, map(cols, ~ cell_filled(d[[.x]]))) else rep(FALSE, nrow(d))
   c(anotados = sum(done), total = nrow(d))
-}
-
-# Q10: quanto o pesquisador alterou da pré-anotação por IA. Compara campo a campo, pelo item_id, só nas linhas em que
-# os dois lados estão preenchidos; valores monetários comparados como conjuntos (tolerância `tol`).
-ia_change_rate <- function(ia, final, kind = c("valores", "documentos"), tol = 0.5) {
-  kind <- match.arg(kind); vocab <- if (kind == "valores") VOCAB_VALORES else VOCAB_DOCUMENTOS
-  j <- inner_join(ia |> select(item_id, starts_with("true_")), final |> select(item_id, starts_with("true_")), by = "item_id", suffix = c(".ia", ".final"))
-  same_set <- function(a, b) map2_lgl(parse_value_set(a), parse_value_set(b), ~ length(.x) == length(.y) && all(abs(.x - .y) <= tol))
-  lab_cols <- intersect(names(vocab), sub("\\.ia$", "", grep("\\.ia$", names(j), value = TRUE)))
-  r_lab <- map_dfr(lab_cols, function(col) {
-    a <- norm_code(j[[paste0(col, ".ia")]], col); b <- norm_code(j[[paste0(col, ".final")]], col); ok <- !is.na(b)
-    tibble(campo = col, n = sum(ok), alterados = sum(ok & coalesce(a != b, TRUE)))
-  })
-  r_val <- if (kind == "documentos") map_dfr(unname(DOC_VALUE_COLS), function(col) {
-    a <- j[[paste0(col, ".ia")]]; b <- j[[paste0(col, ".final")]]
-    tibble(campo = col, n = nrow(j), alterados = sum(!same_set(a, b)))
-  }) else NULL
-  if (kind == "documentos") {
-    a <- toupper(norm_label(j$true_origem_uf.ia)); b <- toupper(norm_label(j$true_origem_uf.final)); ok <- !is.na(b)
-    r_val <- bind_rows(r_val, tibble(campo = "true_origem_uf", n = sum(ok), alterados = sum(ok & coalesce(a != b, TRUE))))
-  }
-  bind_rows(r_lab, r_val) |> mutate(taxa = ifelse(n > 0, alterados / n, NA_real_))
 }
